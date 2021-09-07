@@ -20,11 +20,22 @@ public class Player2Controller : PlayerController
     protected override void Update()
     {
         base.Update();
+        Shoot();
     }
     protected override void Movement()
     {
-        base.Movement();
-    }
+        rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        {
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal2")) == 1f)
+            {
+                movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal2"), 0f, 0f);
 
-    protected override void Dig() { }
+            }
+            else if (Mathf.Abs(Input.GetAxisRaw("Vertical2")) == 1f)
+            {
+                movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical2"), 0f);
+            }
+        }
+    }
 }

@@ -17,7 +17,7 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < _height; j++)
             {
-                GameObject block = Instantiate(square, new Vector2((k - _length / 2), (j - _height / 2)), Quaternion.identity);
+                GameObject block = Instantiate(square, new Vector2((k - _length / 2), (j - _height / 2)), Quaternion.identity, transform);
             }
         }
 

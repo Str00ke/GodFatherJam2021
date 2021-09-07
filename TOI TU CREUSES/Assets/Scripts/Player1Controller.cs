@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player1Controller : PlayerController
 {
     // Digger
+    bool canDig;
 
     protected override void Awake()
     {
@@ -21,11 +22,19 @@ public class Player1Controller : PlayerController
     protected override void Update()
     {
         base.Update();
+        if (canDig) Dig();
     }
 
     protected override void Movement()
     {
         base.Movement();
     }
-    protected override void DropBomb() { }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 9)
+        {
+            canDig = true;
+        }
+    }
 }

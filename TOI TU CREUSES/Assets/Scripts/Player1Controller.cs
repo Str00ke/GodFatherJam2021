@@ -37,4 +37,11 @@ public class Player1Controller : PlayerController
             canDig = true;
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+            canDig = false;
+        }
+    }
 }

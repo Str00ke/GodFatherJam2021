@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [Header("Bomber")]
     public GameObject bombPrefab;
 
+    protected GameObject turret;
+
 
     #region Unity callbacks
     protected virtual void Awake()
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 0f)
             v = Input.GetAxisRaw("Vertical");
         else v = 0f;
-        
+
         rb.velocity = new Vector2(h, v) * speed;
 
         //rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         //rb.rotation = angle;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && turret != null)
         {
             //Vector2 pos = transform.position;
             //pos.x = Mathf.Round(pos.x);
@@ -96,19 +98,23 @@ public class PlayerController : MonoBehaviour
             GameObject bullet = Instantiate(bombPrefab, transform.position, Quaternion.AngleAxis(angle + 90f, Vector3.forward));
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
         }
+        
     }
     protected virtual void Dig()
     {
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.transform.gameObject.layer == 9)
+            try
             {
-                try
+                if (hit.transform.gameObject.layer == 9)
                 {
+
                     Destroy(hit.transform.gameObject);
-                }catch { }
+
+                }
             }
+            catch { }
         }
 
     }

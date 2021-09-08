@@ -6,6 +6,7 @@ public class Player1Controller : PlayerController
 {
     // Digger
     bool canDig;
+    public List<GameObject> dirt;
 
     protected override void Awake()
     {
@@ -32,6 +33,13 @@ public class Player1Controller : PlayerController
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.layer == 9)
+        {
+            dirt.Add(collision.gameObject);
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
         if(collision.gameObject.layer == 9)
         {
             canDig = true;
@@ -42,6 +50,7 @@ public class Player1Controller : PlayerController
         if (collision.gameObject.layer == 9)
         {
             canDig = false;
+            dirt.Remove(collision.gameObject);
         }
     }
 }

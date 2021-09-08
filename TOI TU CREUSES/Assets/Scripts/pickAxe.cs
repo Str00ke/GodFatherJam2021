@@ -22,9 +22,9 @@ public class pickAxe : MonoBehaviour
         }
     }
 
-    public void DestroyBloc(GameObject bloc)
+    public void DestroyBloc()
     {
-        Destroy(bloc);
+        if(bloc != null) Destroy(bloc);
 
     }
 

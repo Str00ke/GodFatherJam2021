@@ -5,15 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //public static PlayerController _instance = null;
-
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     protected SpriteRenderer sr;
     public Animator pAnimator;
 
     //public Transform movePoint;
     Vector2 mousePos;
-
-    public bool canDig;
 
     protected bool modeSwitch;
     protected int player;
@@ -25,8 +22,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Bomber")]
     public GameObject bombPrefab;
-
     protected GameObject turret;
+
+    [Header("Digger")]
+    public pickAxe tool;
+    public bool canDig;
 
 
     #region Unity callbacks
@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
     #endregion
     float angle;
     float lastAngle;
-    Quaternion lastRotation;
     protected virtual void Movement()
     {
         //float h;
@@ -137,20 +136,14 @@ public class PlayerController : MonoBehaviour
     }
     protected virtual void Dig()
     {
-        if (Input.GetMouseButtonDown(0) && canDig == true)
+        if (Input.GetButtonDown("Fire1") && canDig == true)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            try
-            {
-                if (hit.transform.gameObject.layer == 9)
-                {
-
-                    Destroy(hit.transform.gameObject);
-
-                }
-            }
-            catch { }
+            tool.DestroyBloc();
         }
+
+    }
+    protected virtual void DropDirt()
+    {
 
     }
 }

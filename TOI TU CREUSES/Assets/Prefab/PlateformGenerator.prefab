@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3968320146388983928}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1884418890
 GameObject:
@@ -53,6 +53,36 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884418890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3968320146388983928}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1073010939343848123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4592559356883223307}
+  m_Layer: 0
+  m_Name: GroundTiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4592559356883223307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073010939343848123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -88,6 +118,7 @@ Transform:
   m_LocalPosition: {x: 0.5255923, y: -0.50509965, z: -13.112041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4592559356883223307}
   - {fileID: 1884418891}
   - {fileID: 638609307}
   m_Father: {fileID: 0}
@@ -108,5 +139,8 @@ MonoBehaviour:
   tile: {fileID: 602537428453454128, guid: 1f2ad14f686f37f488adc0b97c29742a, type: 3}
   pillar: {fileID: 5686202574192107304, guid: 7c21d76f89198b448ba8dfe0a6cbaf12, type: 3}
   dirt: {fileID: 5944089875545429370, guid: 83a077d3be6ef6348a765797d48fb22e, type: 3}
+  digger: {fileID: 3936533344299022638, guid: 0c5e42bc26ff4e24e94423a9555df282, type: 3}
+  innerCol: {fileID: 0}
+  outerCol: {fileID: 0}
   dirtSpawnRate: 33
   maxDirtCountOnTerrain: 100000

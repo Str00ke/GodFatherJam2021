@@ -64,12 +64,12 @@ public class GridManager : MonoBehaviour
             float x = -X;
             for (int j = 0; j < sizeX; ++j)
             {
-                GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation);
+                GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation, transform.GetChild(0));
                 if (i == 0 && j == 0)
                     farestObj = go;
                 if (level.tileStatesArr[j, i] == 'X')
                 {
-                    GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation);
+                    GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation, transform.GetChild(2));
                     pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
                 } else
                 {
@@ -78,7 +78,7 @@ public class GridManager : MonoBehaviour
                         float rand = Random.Range(0, 100);
                         if (rand <= dirtSpawnRate)
                         {
-                            GameObject dirtGo = Instantiate(dirt, new Vector2(x, y), transform.rotation);
+                            GameObject dirtGo = Instantiate(dirt, new Vector2(x, y), transform.rotation, transform.GetChild(1));
                             level.tileStatesArr[j, i] = 'D';
                             currDirt++;
                         }

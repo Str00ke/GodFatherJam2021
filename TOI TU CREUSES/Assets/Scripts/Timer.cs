@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        scaleChange = new Vector3(0.005f, 0.005f, 0.005f);
+        scaleChange = new Vector3(0.0055f, 0.0055f, 0.0055f);
     }
 
     void Update()
@@ -32,17 +32,17 @@ public class Timer : MonoBehaviour
         {
             timer.transform.localScale -= scaleChange;
 
-            if (timer.transform.localScale.y < 0.6f || timer.transform.localScale.y > 1.0f)
+            if (timer.transform.localScale.y < 0.85f || timer.transform.localScale.y > 1.0f)
             {
                 scaleChange = -scaleChange;
             }
         }
 
         //Clignotement non implémenté pour cause d'explosion
-        //if (timeRemaining < 4f && timeRemaining != 0)
-        //{
-        //    StartCoroutine(TimerBlink());
-        //}
+        if (timeRemaining < 4f && timeRemaining != 0)
+        {
+            StartCoroutine(TimerBlink());
+        }
     }
 
     void DisplayTime(float timeToDisplay)
@@ -59,20 +59,20 @@ public class Timer : MonoBehaviour
     }
 
     //Clignotement non implémenté pour cause d'explosion
-    //IEnumerator TimerBlink()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //        timerText.color = Color.red;
-    //    yield return new WaitForSeconds(0.5f);
-    //    timerText.color = Color.black;
-    //    yield return new WaitForSeconds(0.5f);
-    //    timerText.color = Color.red;
-    //    yield return new WaitForSeconds(0.5f);
-    //    timerText.color = Color.black;
-    //    yield return new WaitForSeconds(0.5f);
-    //    timerText.color = Color.red;
-    //    yield return new WaitForSeconds(0.5f);
-    //    timerText.color = Color.black;
+    IEnumerator TimerBlink()
+    {
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.black;
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.black;
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        timerText.color = Color.black;
 
-    //}
+    }
 }

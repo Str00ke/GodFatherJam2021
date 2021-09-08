@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject gO;
+    public GameObject tile;
+    public GameObject pillar;
     float size;
     int sizeX, sizeY;
     float X, Y;
@@ -27,7 +28,7 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        size = gO.GetComponent<Renderer>().bounds.size.x;
+        size = tile.GetComponent<Renderer>().bounds.size.x;
         Gen();
     }
 
@@ -50,9 +51,12 @@ public class GridManager : MonoBehaviour
             float x = -X;
             for (int j = 0; j < sizeX; ++j)
             {
-                GameObject go = Instantiate(gO, new Vector2(x, y), transform.rotation);
+                GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation);
                 if (level.tileStatesArr[j, i] == 'X')
-                    go.GetComponent<SpriteRenderer>().color = Color.red;
+                {
+                    GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation);
+                    pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
+                }
                 x += size;
             }
             y -= size;

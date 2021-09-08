@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61e945312537fe4cae080cf5c6fa5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gO: {fileID: 6153153879009617156, guid: a34d6caadde57174aa2c5df7a60415b1, type: 3}
+  tile: {fileID: 602537428453454128, guid: 1f2ad14f686f37f488adc0b97c29742a, type: 3}
+  pillar: {fileID: 5686202574192107304, guid: 7c21d76f89198b448ba8dfe0a6cbaf12, type: 3}
 --- !u!4 &832543154
 Transform:
   m_ObjectHideFlags: 0

@@ -15,11 +15,11 @@ TagManager:
   - Wall
   - Shoot
   - Diggable
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Border
+  - tourrets
+  - zoneTurret
+  - PInside
+  - Enemies
   - 
   - 
   - 

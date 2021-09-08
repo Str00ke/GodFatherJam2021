@@ -50,4 +50,18 @@ public class Player2Controller : PlayerController
         //    }
         //}
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 11)
+        {
+            turret = collision.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 11)
+        {
+            turret = null;
+        }
+    }
 }

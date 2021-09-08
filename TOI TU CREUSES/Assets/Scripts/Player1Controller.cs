@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player1Controller : PlayerController
 {
     // Digger
-    bool canDig;
     public List<GameObject> dirt;
 
     protected override void Awake()
@@ -17,6 +16,8 @@ public class Player1Controller : PlayerController
     protected override void Start()
     {
         base.Start();
+        player = 0;
+        modeSwitch = true;
     }
 
     // Update is called once per frame
@@ -31,26 +32,4 @@ public class Player1Controller : PlayerController
         base.Movement();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-        {
-            dirt.Add(collision.gameObject);
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == 9)
-        {
-            canDig = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-        {
-            canDig = false;
-            dirt.Remove(collision.gameObject);
-        }
-    }
 }

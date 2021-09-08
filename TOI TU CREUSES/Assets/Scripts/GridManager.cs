@@ -51,10 +51,10 @@ public class GridManager : MonoBehaviour
             float x = -X;
             for (int j = 0; j < sizeX; ++j)
             {
-                GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation, transform.GetChild(0));
+                GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation);
                 if (level.tileStatesArr[j, i] == 'X')
                 {
-                    GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation, transform.GetChild(1));
+                    GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation);
                     pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
                 }
                 x += size;

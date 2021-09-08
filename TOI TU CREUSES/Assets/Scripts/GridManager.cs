@@ -6,6 +6,10 @@ public class GridManager : MonoBehaviour
 {
     public GameObject tile;
     public GameObject pillar;
+    public GameObject dirt;
+    public float dirtSpawnRate = 33f;
+    public int maxDirtCountOnTerrain;
+    int currDirt;
     float size;
     int sizeX, sizeY;
     float X, Y;
@@ -56,6 +60,19 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation);
                     pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
+                } else
+                {
+                    if (currDirt < maxDirtCountOnTerrain)
+                    {
+                        float rand = Random.Range(0, 100);
+                        if (rand <= dirtSpawnRate)
+                        {
+                            GameObject dirtGo = Instantiate(dirt, new Vector2(x, y), transform.rotation);
+                            level.tileStatesArr[j, i] = 'D';
+                            currDirt++;
+                        }
+                    }
+                    
                 }
                 x += size;
             }

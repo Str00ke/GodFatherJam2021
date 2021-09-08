@@ -24,18 +24,30 @@ public class Player2Controller : PlayerController
     }
     protected override void Movement()
     {
-        rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
-        {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal2")) == 1f)
-            {
-                movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal2"), 0f, 0f);
+        float h;
+        if (Input.GetAxisRaw("Vertical2") == 0f)
+            h = Input.GetAxisRaw("Horizontal2");
+        else h = 0f;
 
-            }
-            else if (Mathf.Abs(Input.GetAxisRaw("Vertical2")) == 1f)
-            {
-                movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical2"), 0f);
-            }
-        }
+        float v;
+        if (Input.GetAxisRaw("Horizontal2") == 0f)
+            v = Input.GetAxisRaw("Vertical2");
+        else v = 0f;
+
+        rb.velocity = new Vector2(h, v) * speed;
+
+        //rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
+        //if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        //{
+        //    if (Mathf.Abs(Input.GetAxisRaw("Horizontal2")) == 1f)
+        //    {
+        //        movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal2"), 0f, 0f);
+
+        //    }
+        //    else if (Mathf.Abs(Input.GetAxisRaw("Vertical2")) == 1f)
+        //    {
+        //        movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical2"), 0f);
+        //    }
+        //}
     }
 }

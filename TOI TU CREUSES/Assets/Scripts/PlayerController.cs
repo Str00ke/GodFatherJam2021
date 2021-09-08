@@ -54,23 +54,31 @@ public class PlayerController : MonoBehaviour
     #endregion
     protected virtual void Movement()
     {
-        //float h = Input.GetAxisRaw("Horizontal");
-        //float v = Input.GetAxisRaw("Vertical");
-        //rb.velocity = new Vector2(h, v) * speed;
+        float h;
+        if (Input.GetAxisRaw("Vertical") == 0f)
+            h = Input.GetAxisRaw("Horizontal");
+        else h = 0f;
 
-        rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
-        {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
-            {
-                movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+        float v;
+        if (Input.GetAxisRaw("Horizontal") == 0f)
+            v = Input.GetAxisRaw("Vertical");
+        else v = 0f;
+        
+        rb.velocity = new Vector2(h, v) * speed;
 
-            }
-            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
-            {
-                movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-            }
-        }
+        //rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
+        //if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        //{
+        //    if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
+        //    {
+        //        movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+
+        //    }
+        //    else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+        //    {
+        //        movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
+        //    }
+        //}
 
     }
     protected virtual void Shoot()

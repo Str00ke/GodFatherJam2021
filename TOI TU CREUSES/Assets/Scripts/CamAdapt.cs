@@ -7,16 +7,6 @@ public class CamAdapt : MonoBehaviour
     GameObject farestObjTmp;
     public GameObject turret;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-
-    }
-
     public void CamAdaptToTerrain(GameObject farestObj, float sizeX, float sizeY)
     {
         GameObject helper = new GameObject();

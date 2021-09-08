@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.6501539
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -260,10 +260,6 @@ PrefabInstance:
     - target: {fileID: 3968320146388983930, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
       propertyPath: m_Name
       value: PlateformGenerator
-      objectReference: {fileID: 0}
-    - target: {fileID: 3968320146388983931, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
-      propertyPath: maxDirtCountOnTerrain
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}

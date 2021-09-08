@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     protected SpriteRenderer sr;
     public Animator pAnimator;
 
-    public Transform movePoint;
+    //public Transform movePoint;
     Vector2 mousePos;
 
     [Header("Movements")]
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         pAnimator = GetComponent<Animator>();
         health = maxHealth;
 
-        movePoint.parent = null;
+        //movePoint.parent = null;
     }
 
     // Update is called once per frame
@@ -104,7 +104,10 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.transform.gameObject.layer == 9)
             {
-                Destroy(hit.transform.gameObject);
+                try
+                {
+                    Destroy(hit.transform.gameObject);
+                }catch { }
             }
         }
 

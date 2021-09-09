@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     public pickAxe tool;
     public bool canDig;
 
+    
+    char[,] tilesStates;
+    protected DigManager digManager;
 
     #region Unity callbacks
     protected virtual void Awake()
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         pAnimator = GetComponent<Animator>();
+        digManager = FindObjectOfType<DigManager>();
         health = maxHealth;
         //movePoint.parent = null;
     }
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour
         Movement();
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.G)) SwitchModeController();
+        if (Input.GetMouseButtonUp(2)) DropDirt();
     }
     #endregion
     float angle;
@@ -136,14 +141,15 @@ public class PlayerController : MonoBehaviour
     }
     protected virtual void Dig()
     {
-        if (Input.GetButtonDown("Fire1") && canDig == true)
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && canDig == true)
         {
             tool.DestroyBloc();
+            digManager.OnDig();
         }
 
     }
     protected virtual void DropDirt()
     {
-
+       
     }
 }

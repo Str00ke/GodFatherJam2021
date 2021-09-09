@@ -38,12 +38,20 @@ public class DigManager : MonoBehaviour
     public void OnGetBlock()
     {
         blocksInDisp++;
+        if (FindObjectOfType<Player1Controller>().canPlaceBlock == false)
+        {
+            FindObjectOfType<Player1Controller>().canPlaceBlock = true;
+        }
         UpdateTxt();
     }
 
     public void OnPlacingBlock()
     {
         blocksInDisp--;
+        if (blocksInDisp <= 0)
+        {
+            FindObjectOfType<Player1Controller>().canPlaceBlock = false;
+        }
         UpdateTxt();
     }
 

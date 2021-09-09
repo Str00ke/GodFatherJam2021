@@ -1509,7 +1509,7 @@ MonoBehaviour:
   - {fileID: 479381375}
   - {fileID: 1367900906}
   - {fileID: 674656627}
-  shooter: {fileID: 5377592199129117042, guid: 2ac3d34fec5fc60479bc2fc53c8292e1, type: 3}
+  shooter: {fileID: 3305428442985265210, guid: 2ac3d34fec5fc60479bc2fc53c8292e1, type: 3}
   UPLEFT: {x: 2.5, y: 1.25}
   UPMIDDLE: {x: 2.5, y: 1}
   UPRIGHT: {x: 2.5, y: 1.25}
@@ -1698,7 +1698,7 @@ PrefabInstance:
     - target: {fileID: 3968320146388983931, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
       propertyPath: digger
       value: 
-      objectReference: {fileID: 2484628613622337270, guid: 0c5e42bc26ff4e24e94423a9555df282, type: 3}
+      objectReference: {fileID: 3936533344299022638, guid: 0c5e42bc26ff4e24e94423a9555df282, type: 3}
     - target: {fileID: 3968320146388983931, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
       propertyPath: shooter
       value: 
@@ -1711,6 +1711,14 @@ PrefabInstance:
       propertyPath: outerCol
       value: 
       objectReference: {fileID: 1992817276}
+    - target: {fileID: 3968320146388983931, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
+      propertyPath: dirtSpawnRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4592559356883223307, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07c2aa5cf912ea4ead7e7f762f3cedd, type: 3}
 --- !u!1 &1072913933
@@ -1802,7 +1810,7 @@ MonoBehaviour:
   blocksToHaveTxt: {fileID: 846033234}
   blocksInDispTxt: {fileID: 1766792401}
   blocksToHaveMax: 3
-  dirtBlock: {fileID: 0}
+  dirtBlock: {fileID: 5944089875545429370, guid: 83a077d3be6ef6348a765797d48fb22e, type: 3}
 --- !u!4 &1090709586
 Transform:
   m_ObjectHideFlags: 0

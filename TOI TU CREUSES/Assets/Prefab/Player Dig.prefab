@@ -196,6 +196,7 @@ MonoBehaviour:
   tool: {fileID: 3936533344411597000}
   canDig: 0
   dirt: []
+  test: {fileID: 5766605416983070485, guid: 2a5f81b428ea68649966c409ff43b265, type: 3}
 --- !u!50 &3936533344299022634
 Rigidbody2D:
   serializedVersion: 4
@@ -313,7 +314,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3936533344411597004}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

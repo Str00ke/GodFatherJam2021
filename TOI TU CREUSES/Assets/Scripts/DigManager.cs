@@ -7,7 +7,7 @@ public class DigManager : MonoBehaviour
 {
 
     public Text blocksToHaveTxt, blocksInDispTxt;
-    int blocksToHave, blocksInDisp;
+    public int blocksToHave, blocksInDisp;
     public int blocksToHaveMax = 3;
     public GameObject dirtBlock;
 

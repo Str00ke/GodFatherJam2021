@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3557942225785449611}
   - component: {fileID: 3557942225785449610}
   - component: {fileID: 3557942225785449716}
-  - component: {fileID: 491512075556446168}
-  m_Layer: 0
+  - component: {fileID: 848725649825427307}
+  - component: {fileID: 3248073732767881663}
+  m_Layer: 14
   m_Name: Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 2
+  speed: 4
+  isOut: 0
 --- !u!50 &3557942225785449716
 Rigidbody2D:
   serializedVersion: 4
@@ -68,9 +70,9 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &491512075556446168
-CircleCollider2D:
+  m_Constraints: 4
+--- !u!70 &848725649825427307
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,9 +84,28 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
+  m_Offset: {x: 0.030000001, y: -0.15}
+  m_Size: {x: 0.45, y: 0.75}
+  m_Direction: 0
+--- !u!95 &3248073732767881663
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3557942225785449609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c222c9209ab411544b1ce45bbf98cdb7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3557942226623728241
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +117,7 @@ GameObject:
   - component: {fileID: 3557942226623728242}
   - component: {fileID: 3557942226623728243}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: SP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,8 +176,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: a1c44cd3818f7834fbb9460a68ef4b1f, type: 3}
   m_Color: {r: 0.6981132, g: 0.2743182, b: 0.114595905, a: 1}
   m_FlipX: 0
   m_FlipY: 0

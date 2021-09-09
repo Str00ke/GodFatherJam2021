@@ -142,6 +142,7 @@ public class GridManager : MonoBehaviour
         Player1Controller digger = FindObjectOfType<Player1Controller>();
         Vector2 pos = GetRandPos(digger);
         Instantiate(dirt, tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform.GetChild(1));
+        tileState[(int)pos.x, (int)pos.y] = 'D';
         TimerDirtSpawn();
     }
 

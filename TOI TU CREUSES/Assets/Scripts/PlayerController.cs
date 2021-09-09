@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public int currentAmunitionBullet;
     public bool inTurretRange;
     public bool inTurretMode;
+    public int nbrAmmoPickedAtOnce;
 
     [Header("Digger")]
     public pickAxe tool;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     protected float angle;
     protected float lastAngle;
     [SerializeField]
-    protected float timeDigging;
+    public float timeDigging;
 
     char[,] tilesStates;
     protected DigManager digManager;

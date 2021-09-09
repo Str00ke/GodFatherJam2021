@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     protected bool modeSwitch;
     protected int player;
-    private CharacterController controller;
 
     [Header("Movements")]
     public int speed;
@@ -40,7 +39,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        controller = gameObject.GetComponent<CharacterController>();
         digManager = FindObjectOfType<DigManager>();
         pAnimator = GetComponent<Animator>();
         health = maxHealth;
@@ -64,6 +62,9 @@ public class PlayerController : MonoBehaviour
         if (modeSwitch)
             rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * speed * 100 * Time.deltaTime;
         else rb.velocity = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2")) * speed * 100 * Time.deltaTime;
+
+        pAnimator.SetFloat("X", rb.velocity.x);
+        pAnimator.SetFloat("Y", rb.velocity.y);
     }
     protected virtual void OnTurret()
     {

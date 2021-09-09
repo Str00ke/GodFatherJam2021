@@ -142,6 +142,7 @@ MonoBehaviour:
   health: 0
   bombPrefab: {fileID: 4818933587328716972, guid: 02145b81af2b012439db3bf8b3617d3b, type: 3}
   dirt: []
+  test: {fileID: 5766605416983070485, guid: 2a5f81b428ea68649966c409ff43b265, type: 3}
 --- !u!50 &2484628613622337268
 Rigidbody2D:
   serializedVersion: 4

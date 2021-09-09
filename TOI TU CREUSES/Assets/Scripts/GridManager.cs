@@ -18,7 +18,12 @@ public class GridManager : MonoBehaviour
     int sizeX, sizeY;
     float X, Y;
     static GridManager instance;
-    
+    Vector2[,] tilePos;
+    Vector2 diggerPos;
+    public char[,] tileState;
+    int tmpDigPosX, tmpDigPosY;
+
+
 
     private void Awake()
     {
@@ -33,14 +38,12 @@ public class GridManager : MonoBehaviour
         return instance;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         size = tile.GetComponent<Renderer>().bounds.size.x;
         Gen();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -54,10 +57,14 @@ public class GridManager : MonoBehaviour
 
         sizeX = level.tileStatesArr.GetLength(0);
         sizeY = level.tileStatesArr.GetLength(1);
-        FindObjectOfType<TouretsManager>().GetGridSize(sizeX, sizeY); //ui c caca je sai
+        FindObjectOfType<TouretsManager>().GetGridSize(sizeX, sizeY);
 
         X = (sizeX / 2) * size;
         Y = (sizeY / 2) * size;
+
+        tilePos = new Vector2[sizeX, sizeY];
+        tileState = level.tileStatesArr;
+
         float y = Y;
         for (int i = 0; i < sizeY; ++i)
         {
@@ -67,7 +74,10 @@ public class GridManager : MonoBehaviour
                 GameObject go = Instantiate(tile, new Vector2(x, y), transform.rotation);
                 if (i == 0 && j == 0)
                     farestObj = go;
-                if (level.tileStatesArr[j, i] == 'X')
+
+                tilePos[j, i] = go.transform.position;
+
+                if (tileState[j, i] == 'X')
                 {
                     GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation);
                     pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
@@ -79,11 +89,16 @@ public class GridManager : MonoBehaviour
                         if (rand <= dirtSpawnRate)
                         {
                             GameObject dirtGo = Instantiate(dirt, new Vector2(x, y), transform.rotation);
-                            level.tileStatesArr[j, i] = 'D';
+                            tileState[j, i] = 'D';
                             currDirt++;
                         }
                         else if (diggerSpawnPos == Vector2.zero)
+                        {
                             diggerSpawnPos = go.transform.position;
+                            tmpDigPosX = j;
+                            tmpDigPosY = i;
+                        }
+                            
                     }
                     
                 }
@@ -105,5 +120,6 @@ public class GridManager : MonoBehaviour
     public void SpawnDigger()
     {
         Instantiate(digger, diggerSpawnPos, transform.rotation);
+        digger.GetComponent<Player1Controller>().SetStartPos(tmpDigPosX, tmpDigPosY);
     }
 }

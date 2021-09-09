@@ -43,6 +43,7 @@ public class LevelEditorManager : MonoBehaviour
             for (int j = 0; j < sliderX.value; ++j)
             {
                 GameObject tile = Instantiate(walkableTile, new Vector2(x, y), transform.rotation);
+                SetTile(new int[j, i], '#');
                 x += size;
                 tile.GetComponent<Tile>().pos = new int[j, i];
             }

@@ -10,7 +10,7 @@ public class Player1Controller : PlayerController
     public GameObject test;
     GameObject test2;
     [SerializeField]
-    int posX, posY;
+    public int posX, posY;
     public bool canPlaceBlock;
     protected override void Awake()
     {

@@ -43,7 +43,6 @@ public class GridManager : MonoBehaviour
     {
         size = tile.GetComponent<Renderer>().bounds.size.x;
         Gen();
-        TimerDirtSpawn();
     }
 
     void Update()
@@ -114,19 +113,18 @@ public class GridManager : MonoBehaviour
         //TODO: Organize
         FindObjectOfType<CamAdapt>().CamAdaptToTerrain(farestObj, sizeX, sizeY);
 
-
     }
 
     public void SpawnDigger()
     {
         Instantiate(digger, diggerSpawnPos, transform.rotation);
         //digger.GetComponent<Player1Controller>().SetStartPos(tmpDigPosX, tmpDigPosY);
+        TimerDirtSpawn();
     }
 
     void TimerDirtSpawn()
     {
         float timer = Random.Range(5, 10);
-        Debug.Log(timer);
         StartCoroutine(Chrono(timer));
     }
 
@@ -138,18 +136,17 @@ public class GridManager : MonoBehaviour
 
     void SpawnDirt()
     {
-        Vector2 pos = GetRandPos();
-        Debug.Log("SPAWN");
+        Player1Controller digger = FindObjectOfType<Player1Controller>();
+        Vector2 pos = GetRandPos(digger);
         Instantiate(dirt, tilePos[(int)pos.x, (int)pos.y], transform.rotation);
         TimerDirtSpawn();
     }
 
-    Vector2 GetRandPos()
+    Vector2 GetRandPos(Player1Controller digger)
     {
         int X = Random.Range(0, sizeX);
         int Y = Random.Range(0, sizeY);
-        Debug.Log(tileState[X, Y]);
-        if (tileState[X, Y] != '#') return GetRandPos();
+        if (tileState[X, Y] != '#' || (digger.posX == X && digger.posY == Y)) return GetRandPos(digger);
         else return new Vector2(X, Y);
     }
 }

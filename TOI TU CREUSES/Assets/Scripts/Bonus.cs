@@ -73,6 +73,7 @@ public class Bonus : MonoBehaviour
 
     public void RemoveEffect()
     {
+        //Debug.Log("REMOVE" + gameObject.name);
         switch (bonusType)
         {
             case EBonusType.DSpeed:
@@ -88,7 +89,7 @@ public class Bonus : MonoBehaviour
                 break;
 
             case EBonusType.SBulletsSizes:
-                FindObjectOfType<GameManager>().bullet.transform.localScale /= effectMultiplier;
+                FindObjectOfType<GameManager>().bullet.transform.localScale = new Vector3(1, 1, 1);
                 break;
         }
 

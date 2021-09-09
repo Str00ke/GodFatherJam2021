@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     GridManager grid;
     public GameObject P1, P2;
+    public GameObject bullet;
     public void setControlsCharacter(GameObject player, bool isFirst)
     {
         if(isFirst)

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player1Controller : PlayerController
 {
     // Digger
-    public List<GameObject> dirt;
     float tileUp, tileDown, tileLeft, tileRight;
     public GameObject test;
     GameObject test2;
@@ -27,8 +26,19 @@ public class Player1Controller : PlayerController
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        if (canDig) Dig();
+        //switch (digging)
+        //{
+        //    case true:
+        //        Dig();
+        //        break;
+        //    case false:
+        //        Movement();
+        //        break;
+        //    default:
+        //        break;
+        //}
+        Movement();
+        if (canDig && Input.GetButtonDown("Action1")) Dig();
         if (Input.GetMouseButtonUp(1) && canPlaceBlock) DropDirt();
     }
 
@@ -42,7 +52,7 @@ public class Player1Controller : PlayerController
             angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
             lastAngle = angle;
         }
-        transform.GetChild(2).rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.GetChild(1).rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         
 
         float pX = transform.position.x;

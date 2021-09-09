@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shootPrefab;
     public GameObject turret;
     public int currentAmunitionBullet;
+    public bool inTurretRange;
     public bool inTurretMode;
 
     [Header("Digger")]
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
     }
     protected virtual void OnTurret()
     {
+        rb.velocity = Vector2.zero;
+
         if (modeSwitch)
             joyPos = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         else joyPos = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"));
@@ -80,8 +83,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Action2") && turret != null && currentAmunitionBullet > 0)
         {
             GameObject bullet = Instantiate(shootPrefab, turret.transform.position, Quaternion.AngleAxis(angle + 90f, Vector3.forward));
+            bullet.GetComponent<Rigidbody2D>().rotation = 135f;
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
-
             currentAmunitionBullet--;
         }
     }
@@ -97,26 +100,5 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 11)
-        {
-            turret = collision.gameObject;
-        }
-    }
-    protected virtual void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 11)
-        {
-            if (Input.GetButtonDown("Submit2")) inTurretMode = true;
-            if (Input.GetButtonDown("Cancel2")) inTurretMode = false;
-        }
-    }
-    protected virtual void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 11)
-        {
-            turret = null;
-        }
-    }
+    
 }

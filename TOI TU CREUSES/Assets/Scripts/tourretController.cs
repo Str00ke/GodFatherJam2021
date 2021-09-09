@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class tourretController : MonoBehaviour
 {
-    private Vector2 mousePos;
+    private Vector2 joyPos;
     public GameObject shootPrefab;
     GameObject circle;
     float range;
@@ -25,11 +25,6 @@ public class tourretController : MonoBehaviour
         }
 
         circle.transform.localScale = new Vector3(range + turretSize.x, range + turretSize.x, 0);
-    }
-
-    private void Update()
-    {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)

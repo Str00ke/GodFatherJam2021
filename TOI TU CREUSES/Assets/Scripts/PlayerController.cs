@@ -4,55 +4,46 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //public static PlayerController _instance = null;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     public Animator pAnimator;
 
-    //public Transform movePoint;
-    Vector2 mousePos;
+    Vector2 joyPos;
 
     protected bool modeSwitch;
     protected int player;
+    private CharacterController controller;
 
     [Header("Movements")]
     public int speed;
     public int maxHealth;
     public int health;
 
-    [Header("Bomber")]
-    public GameObject bombPrefab;
-    protected GameObject turret;
+    [Header("Shooter")]
+    public GameObject shootPrefab;
+    public GameObject turret;
+    public int currentAmunitionBullet;
+    public bool inTurretMode;
 
     [Header("Digger")]
     public pickAxe tool;
     public bool canDig;
+    protected float angle;
+    protected float lastAngle;
 
-    
     char[,] tilesStates;
     protected DigManager digManager;
 
     #region Unity callbacks
-    protected virtual void Awake()
-    {
-        //if (_instance != null && _instance != this)
-        //{
-        //    Destroy(this.gameObject);
-        //}
-        //else
-        //{
-        //    _instance = this;
-        //}
-    }
     // Start is called before the first frame update
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        pAnimator = GetComponent<Animator>();
+        controller = gameObject.GetComponent<CharacterController>();
         digManager = FindObjectOfType<DigManager>();
+        pAnimator = GetComponent<Animator>();
         health = maxHealth;
-        //movePoint.parent = null;
     }
 
     protected virtual void SwitchModeController()
@@ -64,92 +55,67 @@ public class PlayerController : MonoBehaviour
     protected virtual void Update()
     {
         Movement();
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.G)) SwitchModeController();
-        if (Input.GetMouseButtonUp(2)) DropDirt();
     }
     #endregion
-    float angle;
-    float lastAngle;
+
     protected virtual void Movement()
     {
-        //float h;
-        //float v;
-        //if (modeSwitch)
-        //{
-        //    if (Input.GetAxis("Vertical") == 0f)
-        //        h = Input.GetAxis("Horizontal");
-        //    else h = 0f;
-
-        //    if (Input.GetAxis("Horizontal") == 0f)
-        //        v = Input.GetAxis("Vertical");
-        //    else v = 0f;
-        //}else
-        //{
-        //    if (Input.GetAxis("Vertical") == 0f)
-        //        h = Input.GetAxis("Horizontal");
-        //    else h = 0f;
-
-        //    if (Input.GetAxis("Horizontal") == 0f)
-        //        v = Input.GetAxis("Vertical");
-        //    else v = 0f;
-        //}
         if (modeSwitch)
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * speed * 100 * Time.deltaTime;
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * speed * 100 * Time.deltaTime;
         else rb.velocity = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2")) * speed * 100 * Time.deltaTime;
-
-        if (rb.velocity == Vector2.zero) angle = lastAngle;
-        else
-        {
-            angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-            lastAngle = angle;
-        }
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-        //rb.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
-        //if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
-        //{
-        //    if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
-        //    {
-        //        movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
-
-        //    }
-        //    else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
-        //    {
-        //        movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-        //    }
-        //}
-
+    }
+    protected virtual void OnTurret()
+    {
+        if (modeSwitch)
+            joyPos = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        else joyPos = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"));
     }
     protected virtual void Shoot()
     {
-        Vector2 lookDir = mousePos - rb.position;
+        Vector2 lookDir = joyPos;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        //rb.rotation = angle;
 
-        if (Input.GetKeyDown(KeyCode.Space) && turret != null)
+        if (Input.GetButtonDown("Action2") && turret != null && currentAmunitionBullet > 0)
         {
-            //Vector2 pos = transform.position;
-            //pos.x = Mathf.Round(pos.x);
-            //pos.y = Mathf.Round(pos.y);
-
-            GameObject bullet = Instantiate(bombPrefab, transform.position, Quaternion.AngleAxis(angle + 90f, Vector3.forward));
+            GameObject bullet = Instantiate(shootPrefab, turret.transform.position, Quaternion.AngleAxis(angle + 90f, Vector3.forward));
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
+
+            currentAmunitionBullet--;
         }
-        
     }
     protected virtual void Dig()
     {
-        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && canDig == true)
+        if ((Input.GetButtonDown("Action1") || Input.GetKeyDown(KeyCode.Space)) && canDig == true)
         {
             tool.DestroyBloc();
             digManager.OnDig();
         }
-
     }
     protected virtual void DropDirt()
     {
-       
+
+    }
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            turret = collision.gameObject;
+        }
+    }
+    protected virtual void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            if (Input.GetButtonDown("Submit2")) inTurretMode = true;
+            if (Input.GetButtonDown("Cancel2")) inTurretMode = false;
+        }
+    }
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            turret = null;
+        }
     }
 }

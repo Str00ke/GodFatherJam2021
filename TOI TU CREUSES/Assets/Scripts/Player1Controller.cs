@@ -12,10 +12,6 @@ public class Player1Controller : PlayerController
     [SerializeField]
     public int posX, posY;
     public bool canPlaceBlock;
-    protected override void Awake()
-    {
-        base.Awake();
-    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -33,12 +29,19 @@ public class Player1Controller : PlayerController
     {
         base.Update();
         if (canDig) Dig();
-        //Debug.Log(posX + "  " + posY + "   " + FindObjectOfType<GridManager>().tilePos[posX, posY]);
     }
 
     protected override void Movement()
     {
         base.Movement();
+
+        if (rb.velocity == Vector2.zero) angle = lastAngle;
+        else
+        {
+            angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+            lastAngle = angle;
+        }
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         float pX = transform.position.x;
         float pY = transform.position.y;

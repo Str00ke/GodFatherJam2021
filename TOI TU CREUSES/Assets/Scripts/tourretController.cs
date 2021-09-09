@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class tourretController : MonoBehaviour
 {
-    private Vector2 joyPos;
     public GameObject shootPrefab;
     GameObject circle;
     float range;
+    public float rotationA;
 
     private void Start()
     {
         circle = transform.GetChild(1).gameObject;
+    }
+
+    public void LookDirection(float AngleDeg, GameObject Player)
+    {
+        if (Player.GetComponent<Player2Controller>().inTurretMode)
+        {
+            transform.GetChild(0).rotation = Quaternion.Euler(0, 0, AngleDeg-180f);
+        }
+        else transform.GetChild(0).rotation = Quaternion.AngleAxis(rotationA, Vector3.forward);
+    }
+    public void ShootAnim()
+    {
+        GetComponent<Animator>().SetTrigger("shoot");
     }
 
     public void SetRange(float gridSizeX, float gridSizeY, Vector2 turretSize)
@@ -26,7 +39,7 @@ public class tourretController : MonoBehaviour
 
         circle.transform.localScale = new Vector3(range + turretSize.x, range + turretSize.x, 0);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

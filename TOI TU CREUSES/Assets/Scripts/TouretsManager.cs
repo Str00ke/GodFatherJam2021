@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TouretsManager : MonoBehaviour
 {
-    public GameObject[] turrets = new GameObject[8];
+    public GameObject[] turrets;
     public GameObject shooter;
     public Vector2 UPLEFT = new Vector2(2.5f, 1.25f);
     public Vector2 UPMIDDLE = new Vector2(2.5f, 1.25f);
@@ -19,16 +19,6 @@ public class TouretsManager : MonoBehaviour
 
     int _sizeX, _sizeY;
     GameObject topLeftTile;
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
 
     public void GetGridSize(int sizeX, int sizeY)
     {

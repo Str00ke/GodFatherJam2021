@@ -28,8 +28,11 @@ public class PlayerController : MonoBehaviour
     [Header("Digger")]
     public pickAxe tool;
     public bool canDig;
+    public bool digging;
     protected float angle;
     protected float lastAngle;
+    [SerializeField]
+    protected float timeDigging;
 
     char[,] tilesStates;
     protected DigManager digManager;
@@ -64,6 +67,9 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * speed * 100 * Time.deltaTime;
         else rb.velocity = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2")) * speed * 100 * Time.deltaTime;
 
+        if (rb.velocity != Vector2.zero) pAnimator.SetBool("isWalking", true);
+        else pAnimator.SetBool("isWalking", false);
+
         pAnimator.SetFloat("X", rb.velocity.x);
         pAnimator.SetFloat("Y", rb.velocity.y);
     }
@@ -79,26 +85,37 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 lookDir = joyPos;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
         if (Input.GetButtonDown("Action2") && turret != null && currentAmunitionBullet > 0)
         {
-            GameObject bullet = Instantiate(shootPrefab, turret.transform.position, Quaternion.AngleAxis(angle + 90f, Vector3.forward));
-            bullet.GetComponent<Rigidbody2D>().rotation = 135f;
+            GameObject bullet = Instantiate(shootPrefab, turret.transform.position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
+            turret.GetComponent<tourretController>().ShootAnim();
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
             currentAmunitionBullet--;
         }
     }
     protected virtual void Dig()
     {
-        if ((Input.GetButtonDown("Action1") || Input.GetKeyDown(KeyCode.Space)) && canDig == true)
+        rb.velocity = Vector2.zero;
+        digging = true;
+        if (joyPos != Vector2.zero) digging = false;
+        StartCoroutine(waitToDestroy());
+    }
+    IEnumerator waitToDestroy()
+    {
+        yield return new WaitForSeconds(timeDigging);
+        if (digging)
         {
             tool.DestroyBloc();
             digManager.OnDig();
         }
+        digging = false;
+        canDig = false;
     }
     protected virtual void DropDirt()
     {
 
     }
-    
+
 }

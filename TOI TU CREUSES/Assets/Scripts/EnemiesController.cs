@@ -46,4 +46,11 @@ public class EnemiesController : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         isOut = true;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player")){
+            //Hit Defeat
+        }
+    }
 }

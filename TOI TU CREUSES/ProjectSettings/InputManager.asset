@@ -230,22 +230,6 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: z
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.1
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 2
-  - serializedVersion: 3
     m_Name: Vertical2
     descriptiveName: 
     descriptiveNegativeName: 
@@ -278,13 +262,13 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical
+    m_Name: Start
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: z
+    negativeButton: 
+    positiveButton: 
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: joystick 1 button 7
     gravity: 1000
     dead: 0.1
     sensitivity: 1000
@@ -294,29 +278,13 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical
+    m_Name: Start2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: z
+    negativeButton: 
+    positiveButton: enter
     altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.1
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 2
-  - serializedVersion: 3
-    m_Name: Vertical
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: z
-    altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: joystick 2 button 7
     gravity: 1000
     dead: 0.1
     sensitivity: 1000

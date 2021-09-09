@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class DigManager : MonoBehaviour
 {
 
-    public Text blocksToHaveTxt, blocksInDispTxt;
     public int blocksToHave, blocksInDisp;
     public int blocksToHaveMax = 3;
+    public int blocksInDispMax = 2;
+    
     public GameObject dirtBlock;
 
     void Start()
     {
         blocksInDisp = 0;
         blocksToHave = 0;
-        UpdateTxt();
     }
 
     // Update is called once per frame
@@ -32,17 +32,18 @@ public class DigManager : MonoBehaviour
             OnGetBlock();
             blocksToHave = 0;
         }
-        UpdateTxt();
     }
 
     public void OnGetBlock()
     {
-        blocksInDisp++;
-        if (FindObjectOfType<Player1Controller>().canPlaceBlock == false)
+        if (blocksInDisp < blocksInDispMax)
         {
-            FindObjectOfType<Player1Controller>().canPlaceBlock = true;
+            blocksInDisp++;
+            if (FindObjectOfType<Player1Controller>().canPlaceBlock == false)
+            {
+                FindObjectOfType<Player1Controller>().canPlaceBlock = true;
+            }
         }
-        UpdateTxt();
     }
 
     public void OnPlacingBlock()
@@ -52,12 +53,6 @@ public class DigManager : MonoBehaviour
         {
             FindObjectOfType<Player1Controller>().canPlaceBlock = false;
         }
-        UpdateTxt();
     }
 
-    public void UpdateTxt()
-    {
-        blocksToHaveTxt.text = blocksToHave.ToString() + "/" + blocksToHaveMax.ToString();
-        blocksInDispTxt.text = blocksInDisp.ToString();
-    }
 }

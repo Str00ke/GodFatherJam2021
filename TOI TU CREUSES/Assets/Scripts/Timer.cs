@@ -20,14 +20,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (timeRemaining > 0)
-        {
-            timeRemaining += Time.deltaTime;
-        }
-        else
-        {
-            timeRemaining = 0;
-        }
+        timeRemaining += Time.deltaTime;
 
         DisplayTime(timeRemaining);
 
@@ -55,5 +48,5 @@ public class Timer : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    
+
 }

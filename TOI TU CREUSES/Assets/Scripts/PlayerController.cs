@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     protected int player;
 
     //Inputs
-    protected string hrzD, vrtD, actD, subD, cancD, starD;
+    protected string hrzD, vrtD, actD, subD, cancD, starD, XButton;
 
     [Header("Movements")]
     public int speed;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Movement()
     {
-        rb.velocity = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD))* speed * 100 * Time.deltaTime;
+        rb.velocity = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD)).normalized * speed * 100 * Time.deltaTime;
 
         if (rb.velocity != Vector2.zero) pAnimator.SetBool("isWalking", true);
         else pAnimator.SetBool("isWalking", false);
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     protected virtual void OnTurret()
     {
         rb.velocity = Vector2.zero;
-        joyPos = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD));
+        joyPos = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD)).normalized;
     }
 
     public virtual void SwitchModeController()
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
             subD = "Submit";
             cancD = "Cancel";
             starD = "Start";
+            XButton = "XButton";
         }
         else
         {
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
             subD = "Submit2";
             cancD = "Cancel2";
             starD = "Start2";
+            XButton = "XButton2";
         }
     }
 

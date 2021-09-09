@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public GameObject bullet;
     public HUD _hud;
     public bool ready;
+    private void Start()
+    {
+        _hud.HudTextUpdates();
+        Time.timeScale = 0;
+    }
     public void setControlsCharacter(GameObject player, bool isFirst)
     {
         if(isFirst)
@@ -19,6 +24,10 @@ public class GameManager : MonoBehaviour
 
         ready = true;
     }
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+    }
     public void swapControlsCharacter()
     {
         P1.GetComponent<Player1Controller>().SwitchModeController();
@@ -26,8 +35,4 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        _hud.HudTextUpdates();
-    }
 }

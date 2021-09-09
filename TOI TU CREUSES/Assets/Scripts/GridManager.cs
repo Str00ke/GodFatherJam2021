@@ -19,10 +19,13 @@ public class GridManager : MonoBehaviour
     float X, Y;
     static GridManager instance;
 
+    public float minRandTime, maxRandTime;
+
     [HideInInspector]
     public Vector2[,] tilePos;
     Vector2 diggerPos;
     public char[,] tileState;
+    [HideInInspector]
     public int tmpDigPosX, tmpDigPosY;
 
 
@@ -124,7 +127,7 @@ public class GridManager : MonoBehaviour
 
     void TimerDirtSpawn()
     {
-        float timer = Random.Range(5, 10);
+        float timer = Random.Range(minRandTime, maxRandTime);
         StartCoroutine(Chrono(timer));
     }
 
@@ -138,7 +141,7 @@ public class GridManager : MonoBehaviour
     {
         Player1Controller digger = FindObjectOfType<Player1Controller>();
         Vector2 pos = GetRandPos(digger);
-        Instantiate(dirt, tilePos[(int)pos.x, (int)pos.y], transform.rotation);
+        Instantiate(dirt, tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform.GetChild(1));
         TimerDirtSpawn();
     }
 

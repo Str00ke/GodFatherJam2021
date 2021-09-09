@@ -7,6 +7,7 @@ public class EnemiesController : MonoBehaviour
     public Transform target;
     Rigidbody2D rb;
     public float speed;
+    
     // Start is called before the first frame update
     void Start()
     {

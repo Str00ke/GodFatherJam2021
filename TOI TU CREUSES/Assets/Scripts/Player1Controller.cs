@@ -29,6 +29,7 @@ public class Player1Controller : PlayerController
     {
         base.Update();
         if (canDig) Dig();
+        if (Input.GetMouseButtonUp(1) && canPlaceBlock) DropDirt();
     }
 
     protected override void Movement()
@@ -41,7 +42,8 @@ public class Player1Controller : PlayerController
             angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
             lastAngle = angle;
         }
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.GetChild(2).rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
 
         float pX = transform.position.x;
         float pY = transform.position.y;
@@ -167,16 +169,14 @@ public class Player1Controller : PlayerController
                 Debug.Log("DOWNRIGHT");
                 break;*/
             }
-        Debug.Log(posX + "  " + posY);
         //Debug.Log(tileUp + " " + tileDown + " " + tileLeft + " " + tileRight);
     }
 
     protected override void DropDirt()
     {
         base.DropDirt();
-        if (!canPlaceBlock) return;
         digManager.OnPlacingBlock();
-        switch (transform.localRotation.eulerAngles.z)
+        switch (transform.GetChild(2).localRotation.eulerAngles.z)
         {
             case 90: //up
                 Instantiate(digManager.dirtBlock, FindObjectOfType<GridManager>().tilePos[posX, posY - 1], transform.rotation);

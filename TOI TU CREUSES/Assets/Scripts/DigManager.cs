@@ -13,17 +13,10 @@ public class DigManager : MonoBehaviour
     public GameObject dirtBlock;
     public HUD _hud;
 
-
     void Start()
     {
         blocksInDisp = 0;
         blocksToHave = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //updating bullets in HUD from playercontroller/digmanager (TBD)
@@ -63,6 +56,7 @@ public class DigManager : MonoBehaviour
         if (blocksInDisp <= 0)
         {
             FindObjectOfType<Player1Controller>().canPlaceBlock = false;
+            blocksInDisp = 0;
         }
     }
 

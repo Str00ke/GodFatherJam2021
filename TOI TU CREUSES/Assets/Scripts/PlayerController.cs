@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 joyPos;
 
-    protected bool modeSwitch;
+    public bool modeSwitch;
     protected int player;
 
     //Inputs
@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
             turret.GetComponent<tourretController>().ShootAnim();
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
             currentAmunitionBullet--;
+            FindObjectOfType<HUD>().VarUpdatesBullets(currentAmunitionBullet, modeSwitch);
         }
     }
     protected virtual void Dig()

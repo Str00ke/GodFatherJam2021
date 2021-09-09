@@ -11,6 +11,8 @@ public class DigManager : MonoBehaviour
     public int blocksInDispMax = 2;
     
     public GameObject dirtBlock;
+    public HUD _hud;
+
 
     void Start()
     {
@@ -24,9 +26,13 @@ public class DigManager : MonoBehaviour
         
     }
 
+    //updating bullets in HUD from playercontroller/digmanager (TBD)
+
     public void OnDig()
     {
         blocksToHave++;
+        if(FindObjectOfType<GameManager>().ready)
+            _hud.VarUpdatesrBlocks(blocksToHave, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
         if (blocksToHave >= blocksToHaveMax)
         {
             OnGetBlock();
@@ -39,6 +45,9 @@ public class DigManager : MonoBehaviour
         if (blocksInDisp < blocksInDispMax)
         {
             blocksInDisp++;
+            if (FindObjectOfType<GameManager>().ready)
+                _hud.VarUpdatesBlocks(blocksInDisp, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
+            Debug.Log( "block : " + blocksInDisp);
             if (FindObjectOfType<Player1Controller>().canPlaceBlock == false)
             {
                 FindObjectOfType<Player1Controller>().canPlaceBlock = true;
@@ -49,6 +58,8 @@ public class DigManager : MonoBehaviour
     public void OnPlacingBlock()
     {
         blocksInDisp--;
+        if (FindObjectOfType<GameManager>().ready)
+            _hud.VarUpdatesBlocks(blocksInDisp, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
         if (blocksInDisp <= 0)
         {
             FindObjectOfType<Player1Controller>().canPlaceBlock = false;

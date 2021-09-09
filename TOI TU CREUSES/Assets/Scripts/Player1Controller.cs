@@ -33,6 +33,7 @@ public class Player1Controller : PlayerController
         Movement();
         if (canDig && Input.GetButtonDown(actD)) Dig();
         if (Input.GetMouseButtonUp(1) && canPlaceBlock) DropDirt();
+        
     }
 
     protected override void Movement()

@@ -15,6 +15,7 @@ public class Player2Controller : PlayerController
         Init();
         FindObjectOfType<GameManager>().setControlsCharacter(gameObject, modeSwitch);
         currentAmunitionBullet = 30;
+        FindObjectOfType<HUD>().VarUpdatesBullets(currentAmunitionBullet, modeSwitch);
     }
     // Update is called once per frame
     protected override void Update()

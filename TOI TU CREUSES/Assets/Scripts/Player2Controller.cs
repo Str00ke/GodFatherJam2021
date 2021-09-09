@@ -14,11 +14,6 @@ public class Player2Controller : PlayerController
         modeSwitch = false;
         currentAmunitionBullet = 30;
     }
-    private void FixedUpdate()
-    {
-        
-        
-    }
     // Update is called once per frame
     protected override void Update()
     {

@@ -11,7 +11,9 @@ public class Player2Controller : PlayerController
     {
         base.Start();
         player = 1;
-        modeSwitch = false;
+        modeSwitch = true;
+        Init();
+        FindObjectOfType<GameManager>().setControlsCharacter(gameObject, modeSwitch);
         currentAmunitionBullet = 30;
     }
     // Update is called once per frame
@@ -31,8 +33,8 @@ public class Player2Controller : PlayerController
         }
         if (inTurretRange)
         {
-            if (Input.GetButtonDown("Submit2")) inTurretMode = true;
-            if (Input.GetButtonDown("Cancel2")) inTurretMode = false;
+            if (Input.GetButtonDown(subD)) inTurretMode = true;
+            if (Input.GetButtonDown(cancD)) inTurretMode = false;
         }
     }
 

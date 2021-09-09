@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     protected bool modeSwitch;
     protected int player;
 
+    //Inputs
+    protected string hrzD, vrtD, actD, subD, cancD, starD;
+
     [Header("Movements")]
     public int speed;
     public int maxHealth;
@@ -24,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public int currentAmunitionBullet;
     public bool inTurretRange;
     public bool inTurretMode;
+    public int nbrAmmoPickedAtOnce;
 
     [Header("Digger")]
     public pickAxe tool;
@@ -47,25 +51,20 @@ public class PlayerController : MonoBehaviour
         pAnimator = GetComponent<Animator>();
         health = maxHealth;
     }
-
-    protected virtual void SwitchModeController()
+    protected void Init()
     {
-        modeSwitch = !modeSwitch;
+        SwitchModeController();
     }
-
     // Update is called once per frame
     protected virtual void Update()
     {
         Movement();
-        if (Input.GetKeyDown(KeyCode.G)) SwitchModeController();
     }
     #endregion
 
     protected virtual void Movement()
     {
-        if (modeSwitch)
-            rb.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * speed * 100 * Time.deltaTime;
-        else rb.velocity = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2")) * speed * 100 * Time.deltaTime;
+        rb.velocity = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD))* speed * 100 * Time.deltaTime;
 
         if (rb.velocity != Vector2.zero) pAnimator.SetBool("isWalking", true);
         else pAnimator.SetBool("isWalking", false);
@@ -76,20 +75,43 @@ public class PlayerController : MonoBehaviour
     protected virtual void OnTurret()
     {
         rb.velocity = Vector2.zero;
+        joyPos = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD));
+    }
+
+    public virtual void SwitchModeController()
+    {
+        modeSwitch = !modeSwitch;
+        Debug.Log("p : " + player + " modesw : " + modeSwitch);
 
         if (modeSwitch)
-            joyPos = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        else joyPos = new Vector2(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"));
+        {
+            hrzD = "Horizontal";
+            vrtD = "Vertical";
+            actD = "Action1";
+            subD = "Submit";
+            cancD = "Cancel";
+            starD = "Start";
+        }
+        else
+        {
+            hrzD = "Horizontal2";
+            vrtD = "Vertical2";
+            actD = "Action2";
+            subD = "Submit2";
+            cancD = "Cancel2";
+            starD = "Start2";
+        }
     }
+
     protected virtual void Shoot()
     {
         Vector2 lookDir = joyPos;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
-        if (Input.GetButtonDown("Action2") && turret != null && currentAmunitionBullet > 0)
+        if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)
         {
-            GameObject bullet = Instantiate(shootPrefab, turret.transform.position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
+            GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
             turret.GetComponent<tourretController>().ShootAnim();
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
             currentAmunitionBullet--;
@@ -100,6 +122,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
         digging = true;
         if (joyPos != Vector2.zero) digging = false;
+
         StartCoroutine(waitToDestroy());
     }
     IEnumerator waitToDestroy()

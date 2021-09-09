@@ -20,25 +20,18 @@ public class Player1Controller : PlayerController
         SetStartPos();
         test2 = Instantiate(test, transform.position, transform.rotation);
         player = 0;
-        modeSwitch = true;
+        modeSwitch = false;
+        Init();
+        FindObjectOfType<GameManager>().setControlsCharacter(gameObject, modeSwitch);
+        currentAmunitionBullet = 0;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        //switch (digging)
-        //{
-        //    case true:
-        //        Dig();
-        //        break;
-        //    case false:
-        //        Movement();
-        //        break;
-        //    default:
-        //        break;
-        //}
+
         Movement();
-        if (canDig && Input.GetButtonDown("Action1")) Dig();
+        if (canDig && Input.GetButtonDown(actD)) Dig();
         if (Input.GetMouseButtonUp(1) && canPlaceBlock) DropDirt();
     }
 

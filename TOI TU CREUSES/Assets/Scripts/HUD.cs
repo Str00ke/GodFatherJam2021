@@ -24,6 +24,8 @@ public class HUD : MonoBehaviour
     public Image barJ2;
     public Image shovelJ1;
     public Image shovelJ2;
+    public GameObject Icon1;
+    public GameObject Icon2;
     public float counter;
 
     [HideInInspector]
@@ -117,7 +119,23 @@ public class HUD : MonoBehaviour
             shovelJ2.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(13, shovelJ2.rectTransform.anchoredPosition.y), new Vector3(110, shovelJ2.rectTransform.anchoredPosition.y), 1);
         }
     }
-
+    public void swapIcon()
+    {
+        if (FindObjectOfType<Player1Controller>().modeSwitch)
+        {
+            Icon1.transform.GetChild(0).gameObject.SetActive(false);
+            Icon1.transform.GetChild(1).gameObject.SetActive(true);
+            Icon2.transform.GetChild(0).gameObject.SetActive(true);
+            Icon2.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        else
+        {
+            Icon1.transform.GetChild(0).gameObject.SetActive(true);
+            Icon1.transform.GetChild(1).gameObject.SetActive(false);
+            Icon2.transform.GetChild(0).gameObject.SetActive(false);
+            Icon2.transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
     public void HudTextUpdates()
     {
         blocksJ1.text = blocks1 + "/" + FindObjectOfType<DigManager>().blocksInDispMax;

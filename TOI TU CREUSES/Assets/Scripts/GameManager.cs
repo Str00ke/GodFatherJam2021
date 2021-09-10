@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
     }
     public void setControlsCharacter(GameObject player, bool isFirst)
     {
-        if(isFirst)
-        P1 = player;
+        if (isFirst)
+            P1 = player;
         else
-        P2 = player;
+            P2 = player;
 
         ready = true;
     }
@@ -30,8 +30,12 @@ public class GameManager : MonoBehaviour
     }
     public void swapControlsCharacter()
     {
-        P1.GetComponent<Player1Controller>().SwitchModeController();
-        P2.GetComponent<Player2Controller>().SwitchModeController();
+
+        FindObjectOfType<Player1Controller>().SwitchModeController();
+        FindObjectOfType<Player1Controller>().pAnimator.SetTrigger("TP");
+        FindObjectOfType<Player2Controller>().SwitchModeController();
+        FindObjectOfType<Player2Controller>().pAnimator.SetTrigger("TP");
+        _hud.swapIcon();
     }
 
 

@@ -12,6 +12,8 @@ public class DigManager : MonoBehaviour
     
     public GameObject dirtBlock;
     public HUD _hud;
+    public bool bonusAmmo;
+    public Vector2 ammo;
 
     void Start()
     {
@@ -24,12 +26,20 @@ public class DigManager : MonoBehaviour
     public void OnDig()
     {
         blocksToHave++;
-        if(FindObjectOfType<GameManager>().ready)
-            _hud.VarUpdatesrBlocks(blocksToHave, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
-
-        int rand = Random.Range(0, 4);
         if (FindObjectOfType<GameManager>().ready)
-            _hud.VarUpdatesBullets(rand, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
+        {
+            Player1Controller _p1 = FindObjectOfType<GameManager>().P1.GetComponent<Player1Controller>();
+            _hud.VarUpdatesrBlocks(blocksToHave, _p1.modeSwitch);
+
+            //random bullet drop
+            BonusAmmo(_p1, bonusAmmo);
+
+            Vector2 shovelPos = _p1.transform.GetChild(1).GetChild(0).transform.position;
+            //random Bonus drop
+            int randBonus = Random.Range(0, 30);
+            if (randBonus <= 3) FindObjectOfType<BonusManager>().GetComponent<BonusManager>().SpawnerBonus(shovelPos);
+        }
+         
 
         if (blocksToHave >= blocksToHaveMax)
         {
@@ -37,7 +47,16 @@ public class DigManager : MonoBehaviour
             blocksToHave = 0;
         }
     }
+    public void BonusAmmo(Player1Controller p, bool adBonus)
+    {
+        int rand;
+        if (adBonus)
+            rand = Random.Range(4, 8);
+        else
+            rand = Random.Range(0, 4);
 
+        _hud.VarUpdatesBullets(rand, p.modeSwitch);
+    }
     public void OnGetBlock()
     {
         if (blocksInDisp < blocksInDispMax)

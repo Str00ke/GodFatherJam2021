@@ -11,7 +11,8 @@ public class EnemiesController : MonoBehaviour
     public float speed;
     public bool isOut;
     public bool isRed;
-
+    bool hasAttacked;
+    float distAttack;
     public enum StateMove { MOVE, ATTACK }
     public StateMove currentState;
 
@@ -22,6 +23,8 @@ public class EnemiesController : MonoBehaviour
         pAnimator = GetComponent<Animator>();
         currentState = StateMove.MOVE;
         isOut = false;
+        if (isRed) distAttack = 1f;
+        else distAttack = 0.2f;
     }
     
     // Update is called once per frame
@@ -52,11 +55,15 @@ public class EnemiesController : MonoBehaviour
         pAnimator.SetFloat("XVel", rb.velocity.x);
         pAnimator.SetFloat("YVel", rb.velocity.y);
     }
-    bool hasAttacked;
+
     public void MoveToTarget()
     {
         hasAttacked = false;
-        rb.velocity = new Vector2(target.transform.position.x - rb.transform.position.x, target.transform.position.y - rb.transform.position.y).normalized * speed * 100 * Time.deltaTime;
+        if(Vector2.Distance(target.position, transform.position) > distAttack)
+        {
+            rb.velocity = new Vector2(target.transform.position.x - rb.transform.position.x, target.transform.position.y - rb.transform.position.y).normalized * speed * 100 * Time.deltaTime;
+        }else currentState = StateMove.ATTACK;
+
     }
     public void Attack()
     {

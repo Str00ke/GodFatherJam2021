@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
             currentAmunitionBullet -= costAmmo;
 
 
-        FindObjectOfType<HUD>().VarUpdatesBullets(-costAmmo, modeSwitch);
+            FindObjectOfType<HUD>().VarUpdatesBullets(-costAmmo, modeSwitch);
         }
     }
     protected virtual void Dig()

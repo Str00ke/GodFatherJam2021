@@ -7,7 +7,8 @@ public enum EBonusType
     DSpeed,
     DPickUpAmmo,
     DDigSpeed,
-    SBulletsSizes
+    SBulletsSizes,
+    SwapCorps
 }
 public class Bonus : MonoBehaviour
 {
@@ -16,96 +17,120 @@ public class Bonus : MonoBehaviour
     public int effectMultiplier;
     Player1Controller digger;
     Player2Controller shooter;
+    BonusManager BonusMgr;
+    public GameObject bombPrefab;
     Coroutine depopCoroutine = null;
+    int _speed;
+    float _digSpeed;
+    bool _ammoB;
+    Vector2 _bulletSize;
 
     private void Start()
     {
         digger = FindObjectOfType<Player1Controller>();
         shooter = FindObjectOfType<Player2Controller>();
+        BonusMgr = FindObjectOfType<BonusManager>();
+        Init();
         //Debug.Log("APPEAR" + gameObject.name);
     }
-
-
-    public void PrepareTimer(float value) 
+    private void Init()
     {
-        depopCoroutine = StartCoroutine(TimeBeforeDepop(value));
+        _speed = digger.speed;
+        _digSpeed = digger.timeDigging;
+        _ammoB = false;
+        _bulletSize = Vector2.one;
+        BonusMgr.GetValue(_speed, _digSpeed, _ammoB);
     }
 
-    public IEnumerator TimeBeforeDepop(float value)
-    {
-        yield return new WaitForSeconds(value);
-        //Debug.Log("DEPOP" + gameObject.name);
-        DestroyBonus();
-    }
+    //public void PrepareTimer(float value)
+    //{
+    //    depopCoroutine = StartCoroutine(TimeBeforeDepop(value));
+    //}
+
+    //public IEnumerator TimeBeforeDepop(float value)
+    //{
+    //    yield return new WaitForSeconds(value);
+    //    //Debug.Log("DEPOP" + gameObject.name);
+    //    DestroyBonus();
+    //}
 
     public void ApplyEffect()
     {
         //Debug.Log("APPLY" + gameObject.name);
-        StopCoroutine(depopCoroutine);
+        //StopCoroutine(depopCoroutine);
         switch (bonusType)
         {
             case EBonusType.DSpeed:
-                digger.speed *= effectMultiplier;
+                digger.speed += 2;
+                BonusMgr.RemoveBonus(0, durationTime, gameObject);
                 break;
-
             case EBonusType.DPickUpAmmo:
-                digger.nbrAmmoPickedAtOnce *= effectMultiplier;
+                //digger.nbrAmmoPickedAtOnce *= effectMultiplier;
+                FindObjectOfType<DigManager>().bonusAmmo = true;
+                BonusMgr.RemoveBonus(1, durationTime, gameObject);
                 break;
-
             case EBonusType.DDigSpeed:
                 digger.timeDigging /= effectMultiplier;
+                BonusMgr.RemoveBonus(2, durationTime, gameObject);
                 break;
-
             case EBonusType.SBulletsSizes:
-                FindObjectOfType<GameManager>().bullet.transform.localScale *= effectMultiplier;
+                digger.shootPrefab = bombPrefab;
+                BonusMgr.RemoveBonus(3, durationTime, gameObject);
                 break;
+            case EBonusType.SwapCorps:
+                FindObjectOfType<GameManager>().swapControlsCharacter();
+                Destroy(gameObject);
+                break;
+
         }
-        Destroy(gameObject.GetComponent<SpriteRenderer>());
-        Destroy(gameObject.GetComponent<BoxCollider2D>());
-        StartCoroutine(Timer());
+        //transform.GetChild(0).gameObject.SetActive(false);
+        //StartCoroutine(Timer());
     }
 
 
-    IEnumerator Timer() {
-        yield return new WaitForSeconds(durationTime);
-        RemoveEffect();
-    }
+    //IEnumerator Timer()
+    //{
+    //    yield return new WaitForSeconds(durationTime);
+    //    //RemoveEffect();
+    //}
 
-    public void RemoveEffect()
-    {
-        //Debug.Log("REMOVE" + gameObject.name);
-        switch (bonusType)
-        {
-            case EBonusType.DSpeed:
-                digger.speed /= effectMultiplier;
-                break;
+    //public void RemoveEffect()
+    //{
+    //    //Debug.Log("REMOVE" + gameObject.name);
+    //    switch (bonusType)
+    //    {
+    //        case EBonusType.DSpeed:
+    //            digger.speed /= effectMultiplier;
+    //            break;
 
-            case EBonusType.DPickUpAmmo:
-                digger.nbrAmmoPickedAtOnce /= effectMultiplier;
-                break;
+    //        case EBonusType.DPickUpAmmo:
+    //            digger.nbrAmmoPickedAtOnce /= effectMultiplier;
+    //            break;
 
-            case EBonusType.DDigSpeed:
-                digger.timeDigging *= effectMultiplier;
-                break;
+    //        case EBonusType.DDigSpeed:
+    //            digger.timeDigging *= effectMultiplier;
+    //            break;
 
-            case EBonusType.SBulletsSizes:
-                FindObjectOfType<GameManager>().bullet.transform.localScale = new Vector3(1, 1, 1);
-                break;
-        }
+    //        case EBonusType.SBulletsSizes:
+    //            digger.shootPrefab = bulletPrefab;
+    //            break;
+    //    }
 
-        DestroyBonus();
-    }
+    //    DestroyBonus();
+    //}
 
-    void DestroyBonus()
-    {
-        StopAllCoroutines();
-        //Debug.Log("DESTROY" + gameObject.name);
-        Destroy(transform.gameObject);
-    }
+    //void DestroyBonus()
+    //{
+    //    //StopAllCoroutines();
+    //    //Debug.Log("DESTROY" + gameObject.name);
+    //    //Destroy(transform.gameObject);
+    //    Destroy(gameObject);
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ApplyEffect();
+        if(collision.gameObject.CompareTag("Player"))
+            ApplyEffect();
     }
 
 }

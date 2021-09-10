@@ -199,4 +199,16 @@ public class Player1Controller : PlayerController
                 break;
         }
     }
+
+    public void Die()
+    {
+        pAnimator.SetTrigger("Die");
+        StartCoroutine(AfterDie());
+    }
+
+    IEnumerator AfterDie()
+    {
+        yield return new WaitForSeconds(1.0f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }

@@ -12,8 +12,17 @@ public class shootController : MonoBehaviour
         //if (!isBomb)
         //{
             Debug.Log(collision.gameObject.name);
-            //Destroy(gameObject);
-            if (collision.gameObject.layer == 14 || collision.gameObject.layer == 17) Destroy(collision.gameObject);
+        //Destroy(gameObject);
+            if (collision.gameObject.layer == 14) 
+            {
+                collision.gameObject.GetComponent<EnemiesController>().Die();
+                Destroy(collision.gameObject, 1.0f);
+                Destroy(gameObject);
+            }
+            if (collision.gameObject.layer == 17) {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
             if (collision.gameObject.CompareTag("Player"))
             {
                 FindObjectOfType<GameManager>().swapControlsCharacter();

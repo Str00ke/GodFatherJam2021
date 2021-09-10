@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public float timeDigging;
 
+    [Header("Sprites")]
+    public Sprite j1Sprite;
+    public Sprite j2Sprite;
+
     char[,] tilesStates;
     protected DigManager digManager;
 
@@ -88,6 +92,15 @@ public class PlayerController : MonoBehaviour
         modeSwitch = !modeSwitch;
         Debug.Log("p : " + player + " modesw : " + modeSwitch);
 
+        if (transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().sprite == j2Sprite)
+        {
+            transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().sprite = j1Sprite;
+        }
+        else
+        {
+            transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().sprite = j2Sprite;
+        }
+
         if (modeSwitch)
         {
             hrzD = "Horizontal";
@@ -114,7 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 lookDir = joyPos;
         Vector2 lookDir2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg + 90f;
+        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg - 90f;
         turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
         if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)
@@ -136,7 +149,7 @@ public class PlayerController : MonoBehaviour
             //    bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
             //    currentAmunitionBullet -= costAmmo;
             //}
-
+            Debug.Log(currentAmunitionBullet);
             costAmmo = 1;
             shootPrefab = turret.GetComponent<tourretController>().shootPrefab;
             GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
@@ -170,6 +183,11 @@ public class PlayerController : MonoBehaviour
         canDig = false;
     }
     protected virtual void DropDirt()
+    {
+
+    }
+
+    protected virtual void SwapSprite()
     {
 
     }

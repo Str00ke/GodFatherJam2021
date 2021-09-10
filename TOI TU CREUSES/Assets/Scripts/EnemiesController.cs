@@ -13,7 +13,7 @@ public class EnemiesController : MonoBehaviour
     public bool isRed;
     bool hasAttacked;
     float distAttack;
-    public enum StateMove { MOVE, ATTACK }
+    public enum StateMove { MOVE, ATTACK, DEAD }
     public StateMove currentState;
 
     // Start is called before the first frame update
@@ -43,9 +43,14 @@ public class EnemiesController : MonoBehaviour
                     case StateMove.MOVE:
                         MoveToTarget();
                         break;
+
                     case StateMove.ATTACK:
                         Attack();
                         break;
+
+                    case StateMove.DEAD:
+                        break;
+
                     default:
                         break;
                 }
@@ -108,7 +113,7 @@ public class EnemiesController : MonoBehaviour
         {
             contact = true;
             currentState = StateMove.ATTACK;
-            StartCoroutine(waitToKill());
+            StartCoroutine(waitToKill(collision.gameObject));
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -119,9 +124,16 @@ public class EnemiesController : MonoBehaviour
         }
     }
 
-    IEnumerator waitToKill()
+    IEnumerator waitToKill(GameObject player)
     {
         yield return new WaitForSeconds(0.2f);
-        if(currentState == StateMove.ATTACK && contact) SceneManager.LoadScene(0);
+        player.GetComponent<Player1Controller>().Die();
+    }
+
+    public void Die()
+    {
+        pAnimator.SetTrigger("Die");
+        currentState = StateMove.DEAD;
+        gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
 }

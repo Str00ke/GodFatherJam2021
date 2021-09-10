@@ -8,6 +8,7 @@ public class tourretController : MonoBehaviour
     GameObject circle;
     float range;
     public float rotationA;
+    public bool inCorner;
 
     private void Start()
     {

@@ -12,15 +12,23 @@ public class Timer : MonoBehaviour
 
     private float minutes;
     private float seconds;
+    bool started;
 
     void Start()
     {
         scaleChange = new Vector3(0.0041666666666667f, 0.0041666666666667f, 0.0041666666666667f);
+        started = false;
+        StartCoroutine(WaitToStart());
+    }
+    IEnumerator WaitToStart()
+    {
+        yield return new WaitForSeconds(2.5f);
+        started = true;
     }
 
     void Update()
     {
-        timeRemaining += Time.deltaTime;
+        if(started)timeRemaining += Time.deltaTime;
 
         DisplayTime(timeRemaining);
 

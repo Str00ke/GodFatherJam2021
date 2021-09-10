@@ -26,6 +26,11 @@ public class DigManager : MonoBehaviour
         blocksToHave++;
         if(FindObjectOfType<GameManager>().ready)
             _hud.VarUpdatesrBlocks(blocksToHave, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
+
+        int rand = Random.Range(0, 4);
+        if (FindObjectOfType<GameManager>().ready)
+            _hud.VarUpdatesBullets(rand, FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch);
+
         if (blocksToHave >= blocksToHaveMax)
         {
             OnGetBlock();

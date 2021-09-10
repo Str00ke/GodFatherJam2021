@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shootPrefab;
     public GameObject turret;
     public int currentAmunitionBullet;
+    public int costAmmo;
     public bool inTurretRange;
     public bool inTurretMode;
     public int nbrAmmoPickedAtOnce;
@@ -113,11 +114,33 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)
         {
+            //if (turret.GetComponent<tourretController>().inCorner && currentAmunitionBullet > 10)
+            //{
+            //    costAmmo = 10;
+            //    shootPrefab = turret.GetComponent<tourretController>().shootPrefab;
+            //    GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
+            //    turret.GetComponent<tourretController>().ShootAnim();
+            //    bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 5f, ForceMode2D.Impulse);
+            //    currentAmunitionBullet -= costAmmo;
+            //}else
+            //{
+            //    costAmmo = 1;
+            //    shootPrefab = turret.GetComponent<tourretController>().shootPrefab;
+            //    GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
+            //    turret.GetComponent<tourretController>().ShootAnim();
+            //    bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
+            //    currentAmunitionBullet -= costAmmo;
+            //}
+
+            costAmmo = 1;
+            shootPrefab = turret.GetComponent<tourretController>().shootPrefab;
             GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
             turret.GetComponent<tourretController>().ShootAnim();
             bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
-            currentAmunitionBullet--;
-            FindObjectOfType<HUD>().VarUpdatesBullets(currentAmunitionBullet, modeSwitch);
+            currentAmunitionBullet -= costAmmo;
+
+
+        FindObjectOfType<HUD>().VarUpdatesBullets(-costAmmo, modeSwitch);
         }
     }
     protected virtual void Dig()
@@ -130,6 +153,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator waitToDestroy()
     {
+        FindObjectOfType<HUD>().isDigging = true;
         yield return new WaitForSeconds(timeDigging);
         if (digging)
         {

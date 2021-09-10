@@ -124,4 +124,9 @@ public class EnemiesController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if(currentState == StateMove.ATTACK && contact) SceneManager.LoadScene(0);
     }
+
+    public void Die()
+    {
+        pAnimator.SetTrigger("Die");
+    }
 }

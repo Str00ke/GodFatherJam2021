@@ -6,8 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    static string absPath = Application.dataPath + "/LevelsData";
-
+    static string absPath = Application.persistentDataPath;
+    
     public static void Save(LevelData data)
     {
 
@@ -25,14 +25,20 @@ public static class SaveSystem
         Debug.Log("Saved in: " + path);
     }
 
-    public static LevelData Load()
+    public static LevelData Load(FileStream myData = null)
     {
+        
         Random.InitState((int)System.DateTime.Now.Ticks);
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream file = File.Open(Application.streamingAssetsPath + "/0.data", FileMode.Open);
+        LevelData data = formatter.Deserialize(file) as LevelData;
+        file.Close();
 
-        int fCount = Directory.GetFiles(absPath, "*.data", SearchOption.TopDirectoryOnly).Length - 1;
-        int name = Random.Range(0, fCount);
+        return data;
+        //int fCount = Directory.GetFiles(absPath, "*.data", SearchOption.TopDirectoryOnly).Length - 1;
+        //int name = Random.Range(0, fCount);
 
-        string path = absPath + "/" + name + ".data";
+        /*string path = absPath + "0.data";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -47,6 +53,6 @@ public static class SaveSystem
         {
             Debug.LogError("Error: Save file not found in: " + path);
             return null;
-        }
+        }*/
     }
 }

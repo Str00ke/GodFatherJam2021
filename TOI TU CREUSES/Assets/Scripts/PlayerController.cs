@@ -126,8 +126,8 @@ public class PlayerController : MonoBehaviour
     protected virtual void Shoot()
     {
         Vector2 lookDir = joyPos;
-        Vector2 lookDir2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg - 90f;
+        //Vector2 lookDir2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
         if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
             //Debug.Break();
             turret.GetComponent<tourretController>().ShootAnim();
-            bullet.GetComponent<Rigidbody2D>().AddForce(lookDir2.normalized * 20f, ForceMode2D.Impulse);
+            bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
             currentAmunitionBullet -= costAmmo;
 
 

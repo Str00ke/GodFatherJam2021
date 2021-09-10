@@ -14,6 +14,10 @@ public class EnemyZoneAttack : MonoBehaviour
     IEnumerator timeToDestroy(Collider2D coll)
     {
         yield return new WaitForSeconds(0.3f);
-        Destroy(coll.gameObject);
+        try
+        {
+            Destroy(coll.gameObject);
+        }
+        catch { }
     }
 }

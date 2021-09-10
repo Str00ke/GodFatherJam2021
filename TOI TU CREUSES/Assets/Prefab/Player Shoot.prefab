@@ -133,12 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pAnimator: {fileID: 0}
   modeSwitch: 0
-  speed: 8
+  speed: 3
   maxHealth: 0
   health: 0
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   turret: {fileID: 0}
-  currentAmunitionBullet: 100000
+  currentAmunitionBullet: 30
   costAmmo: 0
   inTurretRange: 0
   inTurretMode: 0

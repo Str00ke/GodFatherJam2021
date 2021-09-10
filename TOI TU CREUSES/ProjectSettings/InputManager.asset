@@ -147,7 +147,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 0
-    axis: 2
+    axis: 0
     joyNum: 2
   - serializedVersion: 3
     m_Name: Submit2
@@ -166,7 +166,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Horizontal
+    m_Name: Horizontal8
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: q
@@ -182,7 +182,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical
+    m_Name: Vertical8
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: s
@@ -198,7 +198,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Action1
+    m_Name: Action5
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -214,7 +214,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Horizontal2
+    m_Name: Horizontal3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -230,7 +230,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical2
+    m_Name: Vertical3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: down
@@ -246,7 +246,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Action2
+    m_Name: Action3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 

@@ -14,7 +14,7 @@ public class Player2Controller : PlayerController
         modeSwitch = true;
         Init();
         FindObjectOfType<GameManager>().setControlsCharacter(gameObject, modeSwitch);
-        currentAmunitionBullet = 2;
+        currentAmunitionBullet = 30;
         FindObjectOfType<HUD>().VarUpdatesBullets(currentAmunitionBullet, modeSwitch);
     }
     // Update is called once per frame
@@ -23,12 +23,12 @@ public class Player2Controller : PlayerController
         switch (inTurretMode)
         {
             case true:
-                gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+                //gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 Shoot();
                 OnTurret();
                 break;
             case false:
-                gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
+                //gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
                 Movement();
                 break;
             default:

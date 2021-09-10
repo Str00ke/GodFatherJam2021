@@ -37,42 +37,51 @@ public class EnemiesManager : MonoBehaviour
     {
         Player1Controller digger = FindObjectOfType<Player1Controller>();
         Vector2 pos = GetRandPos(digger);
-        switch (palier)
+        if (transform.childCount < 50)
         {
-            case 0:
-                Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                break;
-            case 1:
-                Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                break;
-            case 2:
-                Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                pos = GetRandPos(digger);
-                Instantiate(enemy2, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                break;
-            case 3:
-                Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                pos = GetRandPos(digger);
-                Instantiate(enemy3, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                break;
-            case 4:
-                Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                pos = GetRandPos(digger);
-                Instantiate(enemy2, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                pos = GetRandPos(digger);
-                Instantiate(enemy3, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-                TimerEnemySpawn();
-                break;
-            default:
-                break;
+
+            switch (palier)
+            {
+                case 0:
+                    Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    break;
+                case 1:
+                    Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    break;
+                case 2:
+                    Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    pos = GetRandPos(digger);
+                    Instantiate(enemy2, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    break;
+                case 3:
+                    Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    pos = GetRandPos(digger);
+                    Instantiate(enemy3, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    break;
+                case 4:
+                    Instantiate(enemy1, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    pos = GetRandPos(digger);
+                    Instantiate(enemy2, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    pos = GetRandPos(digger);
+                    Instantiate(enemy3, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
+                    TimerEnemySpawn();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        else
+        {
+            TimerEnemySpawn();
         }
     }
 

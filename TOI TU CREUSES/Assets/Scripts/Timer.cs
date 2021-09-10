@@ -18,7 +18,7 @@ public class Timer : MonoBehaviour
     {
         scaleChange = new Vector3(0.0041666666666667f, 0.0041666666666667f, 0.0041666666666667f);
         started = false;
-        palier = -1;
+        palier = 0;
         StartCoroutine(WaitToStart());
     }
     int palier;

@@ -92,18 +92,17 @@ public class HUD : MonoBehaviour
     public void StartAnimDig()
     {
         counter += Time.deltaTime;
+        Player1Controller p1 = FindObjectOfType<Player1Controller>();
         if (FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch)
         {
-            Player1Controller p1 = FindObjectOfType<Player1Controller>();
             barJ1.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / p1.timeDigging);
             shovelJ1.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(20, shovelJ1.rectTransform.anchoredPosition.y), new Vector3(115, shovelJ1.rectTransform.anchoredPosition.y), counter / p1.timeDigging);
             if (barJ1.GetComponent<Image>().fillAmount == 0) isDigging = false;
         }
         else
         {
-            Player2Controller p2 = FindObjectOfType<Player2Controller>();
-            barJ2.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / p2.timeDigging);
-            shovelJ2.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(110, shovelJ2.rectTransform.anchoredPosition.y), new Vector3(13, shovelJ2.rectTransform.anchoredPosition.y), counter / p2.timeDigging);
+            barJ2.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / p1.timeDigging);
+            shovelJ2.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(110, shovelJ2.rectTransform.anchoredPosition.y), new Vector3(13, shovelJ2.rectTransform.anchoredPosition.y), counter / p1.timeDigging);
             if (barJ2.GetComponent<Image>().fillAmount == 0) isDigging = false;
         }
     }

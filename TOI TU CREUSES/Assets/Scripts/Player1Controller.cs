@@ -203,12 +203,13 @@ public class Player1Controller : PlayerController
     public void Die()
     {
         pAnimator.SetTrigger("Die");
+        rb.velocity = Vector2.zero;
         StartCoroutine(AfterDie());
     }
 
     IEnumerator AfterDie()
     {
         yield return new WaitForSeconds(1.0f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        FindObjectOfType<GameManager>().StopTime();
     }
 }

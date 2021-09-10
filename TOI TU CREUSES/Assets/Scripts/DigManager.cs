@@ -9,7 +9,8 @@ public class DigManager : MonoBehaviour
     public int blocksToHave, blocksInDisp;
     public int blocksToHaveMax = 3;
     public int blocksInDispMax = 2;
-    
+    private AudioSource source;
+
     public GameObject dirtBlock;
     public HUD _hud;
     public bool bonusAmmo;
@@ -19,6 +20,7 @@ public class DigManager : MonoBehaviour
     {
         blocksInDisp = 0;
         blocksToHave = 0;
+        source = GetComponent<AudioSource>();
     }
 
     //updating bullets in HUD from playercontroller/digmanager (TBD)
@@ -39,8 +41,8 @@ public class DigManager : MonoBehaviour
             int randBonus = Random.Range(0, 30);
             if (randBonus <= 3) FindObjectOfType<BonusManager>().GetComponent<BonusManager>().SpawnerBonus(shovelPos);
         }
-         
 
+        if (!source.isPlaying) source.Play();
         if (blocksToHave >= blocksToHaveMax)
         {
             OnGetBlock();

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     public Animator pAnimator;
-
+    private AudioSource source;
     Vector2 joyPos;
 
     public bool modeSwitch;
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         digManager = FindObjectOfType<DigManager>();
         pAnimator = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
         health = maxHealth;
     }
     protected void Init()
@@ -63,12 +64,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (Input.GetButtonDown(starD) && !FindObjectOfType<GameManager>().isPaused)
-        {
-            Debug.Log("pressedpause");
-            FindObjectOfType<GameManager>().OnPause();
-        }
-        if (Input.GetButtonDown(starD) && FindObjectOfType<GameManager>().isPaused) FindObjectOfType<GameManager>().OnUnPause();
+        
     }
 
     protected virtual void FixedUpdate()
@@ -82,7 +78,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(rb.velocity);
         if (rb.velocity != Vector2.zero) pAnimator.SetBool("isWalking", true);
         else pAnimator.SetBool("isWalking", false);
-
+        if (!source.isPlaying && rb.velocity != Vector2.zero) source.Play();
         pAnimator.SetFloat("X", rb.velocity.x);
         pAnimator.SetFloat("Y", rb.velocity.y);
     }

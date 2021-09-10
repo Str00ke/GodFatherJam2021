@@ -16,6 +16,13 @@ public class GameManager : MonoBehaviour
         _hud.HudTextUpdates();
         Time.timeScale = 0;
     }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Start")){
+            if(isPaused) OnUnPause();
+            else OnPause();
+        }
+    }
     public void setControlsCharacter(GameObject player, bool isFirst)
     {
         if (isFirst)
@@ -57,14 +64,14 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public void OnPause()
     {
-        Time.timeScale = 0;
-        isPaused = true;
         panelPause.SetActive(true);
+        isPaused = true;
+        Time.timeScale = 0;
     }
     public void OnUnPause()
     {
         Time.timeScale = 1;
-        isPaused = false;
         panelPause.SetActive(false);
+        isPaused = false;
     }
 }

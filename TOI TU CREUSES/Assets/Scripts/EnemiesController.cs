@@ -13,6 +13,8 @@ public class EnemiesController : MonoBehaviour
     public bool isRed;
     bool hasAttacked;
     float distAttack;
+    private AudioSource source;
+
     public enum StateMove { MOVE, ATTACK, DEAD }
     public StateMove currentState;
 
@@ -22,6 +24,7 @@ public class EnemiesController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         pAnimator = GetComponent<Animator>();
         currentState = StateMove.MOVE;
+        source = GetComponent<AudioSource>();
         isOut = false;
         if (isRed) distAttack = 1f;
         else distAttack = 0.2f;
@@ -74,6 +77,7 @@ public class EnemiesController : MonoBehaviour
     {
         if (!hasAttacked)
         {
+            if (!source.isPlaying) source.Play();
             rb.velocity = Vector2.zero;
             if(isRed)
                 StartCoroutine(ZoneToDestroy());
@@ -95,7 +99,7 @@ public class EnemiesController : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         transform.GetChild(1).gameObject.SetActive(false);
-        currentState = StateMove.MOVE;
+        currentState = StateMove.MOVE; 
     }
     private void OnEnable()
     {
@@ -127,12 +131,18 @@ public class EnemiesController : MonoBehaviour
     IEnumerator waitToKill(GameObject player)
     {
         yield return new WaitForSeconds(0.2f);
-        player.GetComponent<Player1Controller>().Die();
+        if (!isRed)
+        {
+            player.GetComponent<Player1Controller>().Die();
+            player.GetComponent<Player1Controller>().pAnimator.SetTrigger("Die");
+        }
+
     }
 
     public void Die()
     {
         pAnimator.SetTrigger("Die");
+        rb.velocity = Vector2.zero;
         currentState = StateMove.DEAD;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
     }

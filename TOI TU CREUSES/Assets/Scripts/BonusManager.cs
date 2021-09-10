@@ -9,13 +9,16 @@ public class BonusManager : MonoBehaviour
     public float minRandTime, maxRandTime;
     public float timeBeforeDepop;
 
+    public GameObject bulletPrefab;
+    int _speed;
+    float _digSpeed;
+    bool _ammoB;
+
     private void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
-        TimerBonusSpawn();
+        //TimerBonusSpawn();
     }
-
-    
 
     void TimerBonusSpawn()
     {
@@ -35,7 +38,7 @@ public class BonusManager : MonoBehaviour
         Player1Controller digger = FindObjectOfType<Player1Controller>();
         Vector2 pos = GetRandPos(digger);
         GameObject go = Instantiate(chooseRandBonus, gridManager.tilePos[(int)pos.x, (int)pos.y], transform.rotation, transform);
-        go.GetComponent<Bonus>().PrepareTimer(timeBeforeDepop);
+        //go.GetComponent<Bonus>().PrepareTimer(timeBeforeDepop);
         TimerBonusSpawn();
     }
 
@@ -45,5 +48,47 @@ public class BonusManager : MonoBehaviour
         int Y = Random.Range(0, gridManager.sizeY);
         if (gridManager.tileState[X, Y] != '#' || (digger.posX == X && digger.posY == Y)) return GetRandPos(digger);
         else return new Vector2(X, Y);
+    }
+    public void SpawnerBonus(Vector2 pos)
+    {
+        GameObject chooseRandBonus = bonusPool[Random.Range(0, bonusPool.Length)];
+        Player1Controller digger = FindObjectOfType<Player1Controller>();
+        Vector2 newPos;
+        newPos.x = Mathf.Round(pos.x);
+        newPos.y = Mathf.Round(pos.y);
+        GameObject go = Instantiate(chooseRandBonus, newPos, transform.rotation, transform);
+        //go.GetComponent<Bonus>().PrepareTimer(timeBeforeDepop);
+
+    }
+    public void GetValue(int sp, float dSp, bool ammo)
+    {
+        _speed = sp; _digSpeed = dSp; _ammoB = ammo;
+    }
+    public void RemoveBonus(int nbBonus, float counter, GameObject Bonus)
+    {
+        StartCoroutine(BonusDuration((int)counter, nbBonus));
+        Destroy(Bonus);
+        
+    }
+    IEnumerator BonusDuration(int timing, int nbBonus)
+    {
+        yield return new WaitForSeconds(timing);
+        switch (nbBonus)
+        {
+            case 0:
+                FindObjectOfType<Player1Controller>().speed = _speed;
+                break;
+            case 1:
+                FindObjectOfType<DigManager>().bonusAmmo = false;
+                break;
+            case 2:
+                FindObjectOfType<Player1Controller>().timeDigging = _digSpeed;
+                break;
+            case 3:
+                FindObjectOfType<Player1Controller>().shootPrefab = bulletPrefab;
+                break;
+            default:
+                break;
+        }
     }
 }

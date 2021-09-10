@@ -50,6 +50,8 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 4
   isOut: 0
+  isRed: 0
+  currentState: 0
 --- !u!50 &3557942225785449716
 Rigidbody2D:
   serializedVersion: 4
@@ -178,7 +180,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a1c44cd3818f7834fbb9460a68ef4b1f, type: 3}
-  m_Color: {r: 0.6981132, g: 0.2743182, b: 0.114595905, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

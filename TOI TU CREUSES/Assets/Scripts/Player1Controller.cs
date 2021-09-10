@@ -32,7 +32,8 @@ public class Player1Controller : PlayerController
 
         Movement();
         if (canDig && Input.GetButtonDown(actD)) Dig();
-        if (Input.GetMouseButtonUp(1) && canPlaceBlock) DropDirt();
+        if (Input.GetButtonDown(XButton) && canPlaceBlock) DropDirt();
+        
     }
 
     protected override void Movement()
@@ -179,7 +180,7 @@ public class Player1Controller : PlayerController
     {
         base.DropDirt();
         digManager.OnPlacingBlock();
-        switch (transform.GetChild(2).localRotation.eulerAngles.z)
+        switch (transform.GetChild(1).localRotation.eulerAngles.z)
         {
             case 90: //up
                 Instantiate(digManager.dirtBlock, FindObjectOfType<GridManager>().tilePos[posX, posY - 1], transform.rotation);

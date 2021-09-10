@@ -8,10 +8,12 @@ public class tourretController : MonoBehaviour
     GameObject circle;
     float range;
     public float rotationA;
+    public bool inCorner;
 
     private void Start()
     {
         circle = transform.GetChild(1).gameObject;
+        transform.GetChild(0).rotation = Quaternion.AngleAxis(rotationA, Vector3.forward);
     }
 
     public void LookDirection(float AngleDeg, GameObject Player)

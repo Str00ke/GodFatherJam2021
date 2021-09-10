@@ -14,7 +14,7 @@ public class Player2Controller : PlayerController
         modeSwitch = true;
         Init();
         FindObjectOfType<GameManager>().setControlsCharacter(gameObject, modeSwitch);
-        currentAmunitionBullet = 30;
+        currentAmunitionBullet = 2;
         FindObjectOfType<HUD>().VarUpdatesBullets(currentAmunitionBullet, modeSwitch);
     }
     // Update is called once per frame
@@ -63,4 +63,6 @@ public class Player2Controller : PlayerController
             turret = null;
         }
     }
+
+   
 }

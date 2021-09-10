@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class GridManager : MonoBehaviour
 {
@@ -21,12 +23,16 @@ public class GridManager : MonoBehaviour
 
     public float minRandTime, maxRandTime;
 
+    List<GameObject> testAppear = new List<GameObject>();
+
     [HideInInspector]
     public Vector2[,] tilePos;
     Vector2 diggerPos;
     public char[,] tileState;
     [HideInInspector]
     public int tmpDigPosX, tmpDigPosY;
+
+    public GameObject HautH, BasH, GaucheV, DroiteV;
 
 
     private void Awake()
@@ -46,18 +52,20 @@ public class GridManager : MonoBehaviour
     {
         size = tile.GetComponent<Renderer>().bounds.size.x;
         Gen();
+        Debug.Log(Application.dataPath);
     }
 
     void Update()
     {
 
     }
-
+    [SerializeField]
+    public FileStream file;
     void Gen()
     {
         GameObject farestObj = null;
 
-        LevelData level = SaveSystem.Load();
+        LevelData level = SaveSystem.Load(file);
 
         sizeX = level.tileStatesArr.GetLength(0);
         sizeY = level.tileStatesArr.GetLength(1);
@@ -84,6 +92,8 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation, transform.GetChild(2));
                     pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
+                    testAppear.Add(pillarGo);
+                    pillarGo.SetActive(false);
                 } else
                 {
                     if (currDirt < maxDirtCountOnTerrain)
@@ -94,6 +104,8 @@ public class GridManager : MonoBehaviour
                             GameObject dirtGo = Instantiate(dirt, new Vector2(x, y), transform.rotation, transform.GetChild(1));
                             tileState[j, i] = 'D';
                             currDirt++;
+                            testAppear.Add(dirtGo);
+                            dirtGo.SetActive(false);
                         }
                         else if (diggerSpawnPos == Vector2.zero)
                         {
@@ -105,6 +117,8 @@ public class GridManager : MonoBehaviour
                     
                 }
                 x += size;
+                testAppear.Add(go);
+                go.SetActive(false);
             }
             y -= size;
         }
@@ -112,15 +126,65 @@ public class GridManager : MonoBehaviour
         innerCol.transform.localScale = new Vector3(sizeX + 0.5f, sizeY + 0.5f, 0);
         outerCol.transform.localScale = new Vector3(sizeX + 3.5f, sizeY + 3.5f, 0);
 
+        CreateBorder(farestObj);
+
         FindObjectOfType<TouretsManager>().GetTile(farestObj);
         //TODO: Organize
         FindObjectOfType<CamAdapt>().CamAdaptToTerrain(farestObj, sizeX, sizeY);
 
     }
 
+    void CreateBorder(GameObject upLeftTile)
+    {
+        float tileSizeX = upLeftTile.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+        float tileSizeY = upLeftTile.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        for (int i = 0; i < sizeX; i++)
+        {
+            Vector2 vec = tilePos[i, 0];
+            vec.y += tileSizeY;
+            Instantiate(HautH, vec, transform.rotation);
+
+            vec = tilePos[i, sizeY-1];
+            vec.y -= tileSizeY * 1.5f;
+            Instantiate(BasH, vec, transform.rotation);
+
+        }
+        
+        for (int i = 0; i < sizeY; i++)
+        {
+            Vector2 vec = tilePos[0, i];
+            vec.x -= tileSizeX;
+            Instantiate(GaucheV, vec, transform.rotation);
+        }
+
+        for (int i = 0; i <= sizeY - 1; i++)
+        {
+            Vector2 vec = tilePos[sizeX, i];
+            vec.x += tileSizeX;
+            Instantiate(DroiteV, vec, transform.rotation);
+        }
+    }
+
+    IEnumerator TilesAppearCo()
+    {
+        for (int i = 0; i < testAppear.Count; i++)
+        {
+            testAppear[i].SetActive(true);
+            yield return new WaitForSeconds(0.001f);
+        }
+    }
+    /*void TilesAppear()
+    {
+        for (int i = 0; i < testAppear.Count; i++)
+        {
+            testAppear[i].SetActive(true);
+        }
+    }*/
+
     public void SpawnDigger()
     {
         Instantiate(digger, diggerSpawnPos, transform.rotation);
+        StartCoroutine(TilesAppearCo());
         //digger.GetComponent<Player1Controller>().SetStartPos(tmpDigPosX, tmpDigPosY);
         TimerDirtSpawn();
     }

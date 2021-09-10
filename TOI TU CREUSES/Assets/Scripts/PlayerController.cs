@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 lookDir = joyPos;
         Vector2 lookDir2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg + 90f;
+        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg - 90f;
         turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
         if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)

@@ -77,12 +77,16 @@ public class BonusManager : MonoBehaviour
         {
             case 0:
                 FindObjectOfType<Player1Controller>().speed = _speed;
+                //Debug.Log("WANTS TO: " + _speed);
+                //Debug.Log("IS TO: " + FindObjectOfType<Player1Controller>().speed);
                 break;
             case 1:
                 FindObjectOfType<DigManager>().bonusAmmo = false;
                 break;
             case 2:
                 FindObjectOfType<Player1Controller>().timeDigging = _digSpeed;
+                //Debug.Log("WANTS TO: " + _digSpeed);
+                //Debug.Log("IS TO: " + FindObjectOfType<Player1Controller>().timeDigging);
                 break;
             case 3:
                 FindObjectOfType<Player1Controller>().shootPrefab = bulletPrefab;

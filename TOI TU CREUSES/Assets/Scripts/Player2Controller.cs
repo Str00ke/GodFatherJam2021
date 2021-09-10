@@ -23,10 +23,12 @@ public class Player2Controller : PlayerController
         switch (inTurretMode)
         {
             case true:
+                gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 Shoot();
                 OnTurret();
                 break;
             case false:
+                gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
                 Movement();
                 break;
             default:

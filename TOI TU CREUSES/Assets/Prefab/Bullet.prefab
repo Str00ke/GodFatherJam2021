@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d5bdbb758419b40940f71b097ab0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBomb: 0
 --- !u!95 &5602497469782923800
 Animator:
   serializedVersion: 3
@@ -152,6 +151,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06850407, y: -0.06850406}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.09871093

@@ -56,8 +56,12 @@ public class PlayerController : MonoBehaviour
     {
         SwitchModeController();
     }
-    // Update is called once per frame
+
     protected virtual void Update()
+    {
+    }
+
+    protected virtual void FixedUpdate()
     {
         Movement();
     }
@@ -66,7 +70,7 @@ public class PlayerController : MonoBehaviour
     protected virtual void Movement()
     {
         rb.velocity = new Vector2(Input.GetAxis(hrzD), Input.GetAxis(vrtD)).normalized * speed * 100 * Time.deltaTime;
-
+        //Debug.Log(rb.velocity);
         if (rb.velocity != Vector2.zero) pAnimator.SetBool("isWalking", true);
         else pAnimator.SetBool("isWalking", false);
 
@@ -109,7 +113,8 @@ public class PlayerController : MonoBehaviour
     protected virtual void Shoot()
     {
         Vector2 lookDir = joyPos;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        Vector2 lookDir2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(lookDir2.y, lookDir2.x) * Mathf.Rad2Deg + 90f;
         turret.GetComponent<tourretController>().LookDirection(angle, gameObject);
 
         if (Input.GetButtonDown(actD) && turret != null && currentAmunitionBullet > 0)
@@ -135,8 +140,9 @@ public class PlayerController : MonoBehaviour
             costAmmo = 1;
             shootPrefab = turret.GetComponent<tourretController>().shootPrefab;
             GameObject bullet = Instantiate(shootPrefab, turret.transform.GetChild(0).GetChild(0).GetChild(0).position, Quaternion.AngleAxis(angle - 135f, Vector3.forward));
+            //Debug.Break();
             turret.GetComponent<tourretController>().ShootAnim();
-            bullet.GetComponent<Rigidbody2D>().AddForce(lookDir.normalized * 20f, ForceMode2D.Impulse);
+            bullet.GetComponent<Rigidbody2D>().AddForce(lookDir2.normalized * 20f, ForceMode2D.Impulse);
             currentAmunitionBullet -= costAmmo;
 
 

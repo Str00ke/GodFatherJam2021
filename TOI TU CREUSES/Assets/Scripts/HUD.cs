@@ -94,14 +94,16 @@ public class HUD : MonoBehaviour
         counter += Time.deltaTime;
         if (FindObjectOfType<GameManager>().P1.GetComponent<PlayerController>().modeSwitch)
         {
-            barJ1.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / 0.8f);
-            shovelJ1.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(20, shovelJ1.rectTransform.anchoredPosition.y), new Vector3(115, shovelJ1.rectTransform.anchoredPosition.y), counter / 0.8f);
+            Player1Controller p1 = FindObjectOfType<Player1Controller>();
+            barJ1.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / p1.timeDigging);
+            shovelJ1.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(20, shovelJ1.rectTransform.anchoredPosition.y), new Vector3(115, shovelJ1.rectTransform.anchoredPosition.y), counter / p1.timeDigging);
             if (barJ1.GetComponent<Image>().fillAmount == 0) isDigging = false;
         }
         else
         {
-            barJ2.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / 0.8f);
-            shovelJ2.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(110, shovelJ2.rectTransform.anchoredPosition.y), new Vector3(13, shovelJ2.rectTransform.anchoredPosition.y), counter / 0.8f);
+            Player2Controller p2 = FindObjectOfType<Player2Controller>();
+            barJ2.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, counter / p2.timeDigging);
+            shovelJ2.rectTransform.anchoredPosition = Vector3.Lerp(new Vector3(110, shovelJ2.rectTransform.anchoredPosition.y), new Vector3(13, shovelJ2.rectTransform.anchoredPosition.y), counter / p2.timeDigging);
             if (barJ2.GetComponent<Image>().fillAmount == 0) isDigging = false;
         }
     }
@@ -136,6 +138,24 @@ public class HUD : MonoBehaviour
             Icon2.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
+
+    public void SwapValues()
+    { //Blocks rBlocks Buulets
+        float blocksTmp = blocks2;
+        blocks2 = blocks1;
+        blocks1 = blocksTmp;
+
+        float rBlocksTmp = rBlocks2;
+        rBlocks2 = rBlocks1;
+        rBlocks1 = rBlocksTmp;
+
+        float buletsTmp = bullets2;
+        bullets2 = bullets1;
+        bullets1 = buletsTmp;
+
+        HudTextUpdates();
+    }
+
     public void HudTextUpdates()
     {
         blocksJ1.text = blocks1 + "/" + FindObjectOfType<DigManager>().blocksInDispMax;

@@ -61,7 +61,7 @@ public class Bonus : MonoBehaviour
         switch (bonusType)
         {
             case EBonusType.DSpeed:
-                digger.speed += 2;
+                digger.speed += 4;
                 BonusMgr.RemoveBonus(0, durationTime, gameObject);
                 break;
             case EBonusType.DPickUpAmmo:
@@ -79,6 +79,7 @@ public class Bonus : MonoBehaviour
                 break;
             case EBonusType.SwapCorps:
                 FindObjectOfType<GameManager>().swapControlsCharacter();
+                //Debug.Log("BonusSWAP!");
                 Destroy(gameObject);
                 break;
 

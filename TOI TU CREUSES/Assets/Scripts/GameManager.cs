@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<Player1Controller>().pAnimator.SetTrigger("TP");
         FindObjectOfType<Player2Controller>().SwitchModeController();
         FindObjectOfType<Player2Controller>().pAnimator.SetTrigger("TP");
+        _hud.SwapValues();
         _hud.swapIcon();
     }
 

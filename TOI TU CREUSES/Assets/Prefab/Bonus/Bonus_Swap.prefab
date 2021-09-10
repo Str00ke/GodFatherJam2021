@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cc1d1b4451aa24391ff7ec768901e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusType: 0
+  bonusType: 4
   durationTime: 5
   effectMultiplier: 2
   bombPrefab: {fileID: 4920292577977728934, guid: 6b5701914f109a54cb58d49535199e3b, type: 3}

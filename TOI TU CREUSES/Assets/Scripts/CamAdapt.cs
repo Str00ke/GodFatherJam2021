@@ -11,7 +11,7 @@ public class CamAdapt : MonoBehaviour
     {
         GameObject helper = new GameObject();
         helper.AddComponent<SpriteRenderer>();
-        helper.transform.position = new Vector2(farestObj.GetComponent<Renderer>().bounds.min.x - turret.GetComponent<Collider2D>().bounds.size.x * 2.5f, (farestObj.GetComponent<Renderer>().bounds.max.y + turret.GetComponent<Collider2D>().bounds.size.y * 2.5f)+1f);
+        helper.transform.position = new Vector2(farestObj.GetComponent<Renderer>().bounds.min.x - turret.GetComponent<Collider2D>().bounds.size.x * 3f, (farestObj.GetComponent<Renderer>().bounds.max.y + turret.GetComponent<Collider2D>().bounds.size.y * 3f)+1f);
         farestObjTmp = helper;
         if (sizeY > sizeX)
         {

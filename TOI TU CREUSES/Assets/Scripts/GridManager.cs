@@ -32,7 +32,7 @@ public class GridManager : MonoBehaviour
     [HideInInspector]
     public int tmpDigPosX, tmpDigPosY;
 
-    public GameObject HautH, BasH, GaucheV, DroiteV;
+    public GameObject HautH, BasH, GaucheV, DroiteV, HautGauche, HautDroite, BasGauche, BasDroite;
 
 
     private void Awake()
@@ -91,7 +91,6 @@ public class GridManager : MonoBehaviour
                 if (tileState[j, i] == 'X')
                 {
                     GameObject pillarGo = Instantiate(pillar, new Vector2(x, y), transform.rotation, transform.GetChild(2));
-                    pillarGo.GetComponent<SpriteRenderer>().color = Color.red;
                     testAppear.Add(pillarGo);
                     pillarGo.SetActive(false);
                 } else
@@ -123,8 +122,8 @@ public class GridManager : MonoBehaviour
             y -= size;
         }
 
-        innerCol.transform.localScale = new Vector3(sizeX + 0.5f, sizeY + 0.5f, 0);
-        outerCol.transform.localScale = new Vector3(sizeX + 3.5f, sizeY + 3.5f, 0);
+        innerCol.transform.localScale = new Vector3(sizeX + 3.5f, sizeY + 5.5f, 0);
+        outerCol.transform.localScale = new Vector3(sizeX + 7.5f, sizeY + 8.5f, 0);
 
         CreateBorder(farestObj);
 
@@ -155,14 +154,31 @@ public class GridManager : MonoBehaviour
             Vector2 vec = tilePos[0, i];
             vec.x -= tileSizeX;
             Instantiate(GaucheV, vec, transform.rotation);
-        }
 
-        for (int i = 0; i <= sizeY - 1; i++)
-        {
-            Vector2 vec = tilePos[sizeX, i];
+            vec = tilePos[sizeX - 1, i];
             vec.x += tileSizeX;
             Instantiate(DroiteV, vec, transform.rotation);
         }
+
+        Vector2 vec2 = tilePos[0, 0];
+        vec2.x -= tileSizeX;
+        vec2.y += tileSizeY;
+        Instantiate(HautGauche, vec2, transform.rotation);
+
+        vec2 = tilePos[sizeX-1, 0];
+        vec2.x += tileSizeX;
+        vec2.y += tileSizeY;
+        Instantiate(HautDroite, vec2, transform.rotation);
+
+        vec2 = tilePos[0, sizeY-1];
+        vec2.x -= tileSizeX;
+        vec2.y -= tileSizeY;
+        Instantiate(BasGauche, vec2, transform.rotation);
+
+        vec2 = tilePos[sizeX-1, sizeY-1];
+        vec2.x += tileSizeX;
+        vec2.y -= tileSizeY;
+        Instantiate(BasDroite, vec2, transform.rotation);
     }
 
     IEnumerator TilesAppearCo()

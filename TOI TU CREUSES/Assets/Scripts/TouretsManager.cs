@@ -51,35 +51,35 @@ public class TouretsManager : MonoBehaviour
             switch (i)
             {
                 case 0: //UP-LEFT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 1.5f, (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 3f, (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 3f);
                     break;
 
                 case 1: //UP-MIDDLE
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x), (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x), (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 4f);
                     break;
 
                 case 2: //UP-RIGHT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 1.5f, (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 3f, (cam.transform.position.x + gridSizeY / 2) + turretSize.y * 3f);
                     break;
 
                 case 3: //MIDDLE-LEFT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 1.5f, (cam.transform.position.x));
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 3f, (cam.transform.position.x));
                     break;
 
                 case 4: //MIDDLEE-RIGHT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 1.5f, (cam.transform.position.x));
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 3f, (cam.transform.position.x));
                     break;
 
                 case 5: //DOWN-LEFT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 1.5f, (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x - gridSizeX / 2) - turretSize.x * 3f, (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 3f);
                     break;
 
                 case 6: //DOWN-MIDDLE
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x), (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x), (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 3f);
                     break;
 
                 case 7: //DOWN-RIGHT
-                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 1.5f, (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 1.5f);
+                    turrets[i].transform.position = new Vector2((cam.transform.position.x + gridSizeX / 2) + turretSize.x * 3f, (cam.transform.position.x - gridSizeY / 2) - turretSize.y * 3f);
                     break;
             }
         }
@@ -89,7 +89,7 @@ public class TouretsManager : MonoBehaviour
 
     void SpawnShooter()
     {
-        Vector2 vec = new Vector2(tLTurret.transform.position.x + tLTurret.GetComponent<Collider2D>().bounds.size.x * 2, tLTurret.transform.position.y);
+        Vector2 vec = new Vector2(tLTurret.transform.position.x + tLTurret.GetComponent<Collider2D>().bounds.size.x * 3, tLTurret.transform.position.y +1);
         Instantiate(shooter, vec, transform.rotation);
     }
 }

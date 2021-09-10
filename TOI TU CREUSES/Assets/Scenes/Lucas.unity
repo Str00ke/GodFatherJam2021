@@ -152,9 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceffadbde1df40e40b18fcb4a410b9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 3557942225785449609, guid: d146a1398ecd24a47a37d5d0ee4cd21e, type: 3}
+  enemy1: {fileID: 0}
+  enemy2: {fileID: 0}
+  enemy3: {fileID: 0}
   minRandTime: 5
   maxRandTime: 10
+  palier: 0
 --- !u!4 &11159269
 Transform:
   m_ObjectHideFlags: 0
@@ -239,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &63106910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2344,6 +2348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &729905801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2726,6 +2731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &817452224
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2882,7 +2888,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e5aa8b5980df8e44284a1888242fc19f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ce79f42534e5a143b69f9a9183d19b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3115,6 +3121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &847681335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3549,6 +3556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &983383374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3685,6 +3693,8 @@ MonoBehaviour:
   blocksInDispMax: 2
   dirtBlock: {fileID: 5944089875545429370, guid: 83a077d3be6ef6348a765797d48fb22e, type: 3}
   _hud: {fileID: 0}
+  bonusAmmo: 0
+  ammo: {x: 0, y: 0}
 --- !u!4 &1033071325
 Transform:
   m_ObjectHideFlags: 0
@@ -3884,6 +3894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &1112514795
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4270,6 +4281,14 @@ MonoBehaviour:
   bulletsJ2: {fileID: 257773813}
   requiredBlocks1: {fileID: 1486937118}
   requiredBlocks2: {fileID: 449713667}
+  barJ1: {fileID: 0}
+  barJ2: {fileID: 0}
+  shovelJ1: {fileID: 0}
+  shovelJ2: {fileID: 0}
+  Icon1: {fileID: 0}
+  Icon2: {fileID: 0}
+  counter: 0
+  isDigging: 0
 --- !u!1 &1223379702
 GameObject:
   m_ObjectHideFlags: 0
@@ -6120,6 +6139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &1840928608
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6681,6 +6701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPrefab: {fileID: 5808901601991190949, guid: 6629b179795949b4ab61132a92fc1912, type: 3}
   rotationA: 0
+  inCorner: 0
 --- !u!61 &2028178296
 BoxCollider2D:
   m_ObjectHideFlags: 0

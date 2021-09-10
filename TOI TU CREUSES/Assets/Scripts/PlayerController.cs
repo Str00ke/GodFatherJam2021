@@ -63,11 +63,16 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (Input.GetButtonDown(starD) && !FindObjectOfType<GameManager>().isPaused)
+        {
+            Debug.Log("pressedpause");
+            FindObjectOfType<GameManager>().OnPause();
+        }
+        if (Input.GetButtonDown(starD) && FindObjectOfType<GameManager>().isPaused) FindObjectOfType<GameManager>().OnUnPause();
     }
 
     protected virtual void FixedUpdate()
     {
-        Movement();
     }
     #endregion
 

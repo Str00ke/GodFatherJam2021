@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4715723089159059136}
   - component: {fileID: 305344329626956602}
   - component: {fileID: -2009495700179953770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HautD
   m_TagString: Untagged
   m_Icon: {fileID: 0}

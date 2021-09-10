@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +39,32 @@ public class GameManager : MonoBehaviour
         _hud.SwapValues();
         _hud.swapIcon();
     }
-
-
+    public GameObject panel;
+    public void StopTime()
+    {
+        panel.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public GameObject panelPause;
+    public bool isPaused;
+    public void OnPause()
+    {
+        Time.timeScale = 0;
+        isPaused = true;
+        panelPause.SetActive(true);
+    }
+    public void OnUnPause()
+    {
+        Time.timeScale = 1;
+        isPaused = false;
+        panelPause.SetActive(false);
+    }
 }

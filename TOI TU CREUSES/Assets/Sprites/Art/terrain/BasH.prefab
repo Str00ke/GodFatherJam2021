@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8275456607337208695}
   - component: {fileID: 7335976003398155918}
   - component: {fileID: 89261208803275112}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BasH
   m_TagString: Untagged
   m_Icon: {fileID: 0}

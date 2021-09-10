@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7707096206793375114}
   - component: {fileID: 7925839627866187598}
   - component: {fileID: -1719296115174756915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GaucheV
   m_TagString: Untagged
   m_Icon: {fileID: 0}

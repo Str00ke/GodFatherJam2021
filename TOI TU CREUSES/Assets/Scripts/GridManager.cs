@@ -181,26 +181,27 @@ public class GridManager : MonoBehaviour
         Instantiate(BasDroite, vec2, transform.rotation);
     }
 
-    IEnumerator TilesAppearCo()
+    /*IEnumerator TilesAppearCo()
     {
         for (int i = 0; i < testAppear.Count; i++)
         {
             testAppear[i].SetActive(true);
-            yield return new WaitForSeconds(0.001f);
-        }
-    }
-    /*void TilesAppear()
-    {
-        for (int i = 0; i < testAppear.Count; i++)
-        {
-            testAppear[i].SetActive(true);
+            yield return new WaitForSeconds(0.0001f);
         }
     }*/
+    void TilesAppear()
+    {
+        for (int i = 0; i < testAppear.Count; i++)
+        {
+            testAppear[i].SetActive(true);
+        }
+    }
 
     public void SpawnDigger()
     {
         Instantiate(digger, diggerSpawnPos, transform.rotation);
-        StartCoroutine(TilesAppearCo());
+        //StartCoroutine(TilesAppearCo());
+        TilesAppear();
         //digger.GetComponent<Player1Controller>().SetStartPos(tmpDigPosX, tmpDigPosY);
         TimerDirtSpawn();
     }
